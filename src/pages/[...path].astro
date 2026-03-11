@@ -2,11 +2,13 @@
 import Layout from '@layouts/Default.astro';
 import { getCollection, getEntry } from '@lib/content';
 import { HOMEPAGE_SLUG } from './index.astro';
+import { CONCERTS_SLUG } from '@content/Concerts';
 
 export async function getStaticPaths() {
+  const excludedSlugs = [HOMEPAGE_SLUG, CONCERTS_SLUG];
   const pages = await getCollection(
     'Pages',
-    (page) => page.data.slug !== HOMEPAGE_SLUG,
+    (page) => !excludedSlugs.includes(page.data.slug),
   );
   return pages.map(({ data: page }) => ({
     params: { path: page.slug },
