@@ -1,0 +1,26 @@
+---
+import { CONCERTS_SLUG } from '@content/Concerts';
+import Layout from '@layouts/Default.astro';
+import { getCollection, getEntry } from '@lib/content';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+
+const entry = (await getEntry('Pages', CONCERTS_SLUG))!;
+
+const concerts = await getCollection('Concerts');
+---
+
+<Layout>
+  <h1>{entry.data.title}</h1>
+
+  <ul>
+    {
+      concerts.map((concert) => (
+        <li>
+          <a href={slugFormatter({ slug: concert.data.meta.path })}>
+            {concert.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

@@ -1,0 +1,9 @@
+#import '@content/Pages/Route.fragment.graphql'
+#import '@content/Identifiable.fragment.graphql';
+
+query PageCollectionEntry($slug: String!) {
+  record: page(filter: { slug: { eq: $slug } }) {
+    ...Identifiable
+    ...PageRoute
+  }
+}

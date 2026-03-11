@@ -1,0 +1,13 @@
+#import '@components/NavigationItem/NavigationItem.fragment.graphql';
+#import '@components/NavigationSubMenu/NavigationSubMenu.fragment.graphql';
+
+fragment Navigation on GeneralRecord {
+  menu {
+    ... on MenuItemRecord {
+      ...NavigationItem
+    }
+    ... on SubmenuItemRecord {
+      ...NavigationSubMenu
+    }
+  }
+}

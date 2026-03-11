@@ -1,0 +1,26 @@
+---
+import classNames from 'clsx';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  slug?: string | null;
+  label?: string | null;
+}
+
+const { slug, label } = Astro.props;
+---
+
+{
+  !slug || !label ? null : (
+    <li class={classNames(styles.navItem)}>
+      <a
+        class={classNames(styles.link, 'text-large')}
+        href={slugFormatter({ slug })}
+      >
+        {label}
+      </a>
+    </li>
+  )
+}

@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use './tokens/colors.scss' as colors;
+@use './tokens/spacing.scss' as spacing;
+@use './tokens/breakpoints.scss' as breakpoints;
+@use './tokens/layout.scss' as layout;
+
+%content-layout {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: map.get(spacing.$rem, 24);
+  padding-right: map.get(spacing.$rem, 24);
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding-left: map.get(spacing.$rem, 64);
+    padding-right: map.get(spacing.$rem, 64);
+  }
+
+  p {
+    max-width: layout.$max-content-width;
+  }
+}
+
+.content-layout {
+  @extend %content-layout;
+  max-width: layout.$default-width;
+}
+
+.content-layout--small {
+  margin: 0 auto;
+  max-width: layout.$md-width;
+}
+
+.with-background {
+  background-image: url('/img/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+hr {
+  border-color: colors.$secondary-light;
+  margin: map.get(spacing.$rem, 16) 0;
+}

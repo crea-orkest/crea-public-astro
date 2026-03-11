@@ -1,0 +1,91 @@
+---
+import classNames from 'clsx';
+import Hamburger from '@components/icons/hamburger.astro';
+import Cross from '@components/icons/cross.astro';
+import NavigationItem from '@components/NavigationItem/NavigationItem.astro';
+import type { NavigationFragment } from '@lib/datocms/types';
+import styles from './styles.module.scss';
+
+interface Props {
+  menu?: NavigationFragment['menu'];
+}
+
+const { menu } = Astro.props;
+---
+
+<mobile-menu class={classNames(styles.root)}>
+  <button
+    class={classNames(styles.menuButton)}
+    type="button"
+    data-name="menu-open-button"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <span class="sr-only">Menu</span>
+    <Hamburger class={classNames(styles.menuIcon)} />
+  </button>
+
+  <div
+    class={classNames(styles.overlay, 'mobile-menu')}
+    data-name="menu-overlay"
+    id="mobile-menu"
+  >
+    <div class={classNames(styles.heading)}>
+      <button
+        class={classNames(styles.menuButton)}
+        type="button"
+        data-name="menu-close-button"
+        aria-expanded="true"
+        aria-controls="mobile-menu"
+      >
+        <span class="sr-only">Sluit menu</span>
+        <Cross class={classNames(styles.menuIcon)} />
+      </button>
+    </div>
+
+    <ul class={styles.mobileMenuItems}>
+      {
+        menu?.map((item) => {
+          if ('link' in item) {
+            return (
+              <NavigationItem slug={item?.link?.slug} label={item.label} />
+            );
+          }
+
+          if ('menu' in item) {
+            return (
+              <li>
+                <span class={classNames(styles.mobileMenuSubItem, 'h3')}>
+                  {item.label}
+                </span>
+                <ul class={styles.mobileMenuSubList}>
+                  {item?.menu?.map((subItem) => {
+                    return (
+                      <NavigationItem
+                        slug={subItem?.link?.slug}
+                        label={subItem.label}
+                      />
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          }
+          return <NavigationItem slug={'/'} label={'Error'} />;
+        })
+      }
+    </ul>
+  </div>
+</mobile-menu>
+
+<script src="./MobileMenu.client.ts"></script>
+
+<style>
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu.open {
+    display: block;
+  }
+</style>

@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use './tokens/colors.scss' as colors;
+@use './tokens/typography.scss' as typography;
+@use './tokens/breakpoints.scss' as breakpoints;
+
+@use 'reset.scss';
+@use 'fonts.scss';
+@use 'layout.scss';
+@use 'text.scss';
+
+body {
+  display: grid;
+  grid-template-rows: max-content;
+  min-height: 100vh;
+  align-items: start;
+
+  font-family: typography.$dm-sans;
+  background-color: colors.$background;
+  color: colors.$primary-dark;
+  font-size: 1rem;
+  word-break: break-word;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1.125rem;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.noscroll-mobile {
+  overflow: hidden;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    overflow: initial;
+  }
+}

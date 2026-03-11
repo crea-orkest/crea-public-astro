@@ -1,0 +1,25 @@
+---
+import Layout from '@layouts/Default.astro';
+import { getCollection, getEntry } from '@lib/content';
+import { HOMEPAGE_SLUG } from './index.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection(
+    'Pages',
+    (page) => page.data.slug !== HOMEPAGE_SLUG,
+  );
+  return pages.map(({ data: page }) => ({
+    params: { path: page.slug },
+  }));
+}
+
+const { path } = Astro.params;
+const entry = await getEntry('Pages', path);
+if (!entry) {
+  return Astro.rewrite('/404/');
+}
+---
+
+<Layout>
+  <h1>{entry.data.title}</h1>
+</Layout>

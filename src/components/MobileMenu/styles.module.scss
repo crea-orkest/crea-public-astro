@@ -1,0 +1,62 @@
+@use 'sass:map';
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+
+.root {
+  font-weight: 700;
+  margin: auto 0;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    display: none;
+  }
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: colors.$primary-dark;
+  cursor: pointer;
+}
+
+.menuIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.heading {
+  display: flex;
+  justify-content: flex-end;
+  padding: map.get(spacing.$rem, 32) map.get(spacing.$rem, 24);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: colors.$background;
+}
+
+.mobileMenuItems {
+  list-style: none;
+  padding: 0 map.get(spacing.$rem, 32);
+  overflow: scroll;
+  height: calc(100% - map.get(spacing.$rem, 96));
+}
+
+.mobileMenuSubList {
+  list-style: none;
+  padding-left: map.get(spacing.$rem, 24);
+  margin-bottom: map.get(spacing.$rem, 24);
+}
+
+.mobileMenuSubItem {
+  display: block;
+  margin-top: map.get(spacing.$rem, 24);
+  color: colors.$primary;
+  font-weight: 400;
+}

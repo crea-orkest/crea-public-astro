@@ -1,0 +1,9 @@
+#import '@content/SiteInfo/PageLink.fragment.graphql';
+
+fragment NavigationItem on MenuItemRecord {
+  id
+  label
+  link {
+    ...PageLink
+  }
+}

@@ -1,0 +1,55 @@
+---
+import classNames from 'clsx';
+import NavigationItem from '@components/NavigationItem/NavigationItem.astro';
+import styles from './styles.module.scss';
+import type { NavigationItemFragment } from '@lib/datocms/types';
+
+interface Props {
+  label: string;
+  subMenu: NavigationItemFragment[];
+}
+
+const { label, subMenu } = Astro.props;
+---
+
+<li class={classNames(styles.listItem)}>
+  <enhanced-submenu>
+    <button
+      class={classNames(styles.button, 'text-large')}
+      disabled={Boolean(subMenu?.length === 0)}
+      type="button"
+      aria-expanded="false"
+      aria-controls="sub-menu"
+    >
+      {label}
+    </button>
+
+    <ul
+      class={classNames(styles.list, 'with-background', 'sub-menu')}
+      data-name="sub-menu"
+      id="sub-menu"
+    >
+      {
+        subMenu?.map((item) => (
+          <NavigationItem slug={item?.link?.slug} label={item.label} />
+        ))
+      }
+    </ul>
+
+    <div class={classNames(styles.arrow, 'sub-menu--arrow')}></div>
+  </enhanced-submenu>
+</li>
+
+<script src="./NavigationSubMenu.client.ts"></script>
+
+<style>
+  .sub-menu,
+  .sub-menu--arrow {
+    display: none;
+  }
+
+  .sub-menu.open,
+  .sub-menu.open + .sub-menu--arrow {
+    display: block;
+  }
+</style>

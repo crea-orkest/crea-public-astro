@@ -1,0 +1,7 @@
+#import '@content/Identifiable.fragment.graphql';
+
+fragment PageLink on PageRecord {
+  ...Identifiable
+  title
+  slug
+}

@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use './spacing.scss' as spacing;
+
+$full-width: 100%;
+$default-width: 1278px;
+$md-width: 800px;
+$sm-width: 688px;
+$xsm-width: 380px;
+
+$max-content-width: 800px;
+
+$content-padding: map.get(spacing.$px, 24);
+
+$default-mobile-spacing: 64;
+$default-desktop-spacing: 128;

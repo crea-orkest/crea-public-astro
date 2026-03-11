@@ -1,0 +1,20 @@
+# build output
+dist/
+functions/
+.wrangler/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# environment variables
+.dev.vars
+.env
+.env.production
+
+# generated files
+src/lib/datocms/itemTypes.json
+src/lib/datocms/types.ts
+src/lib/site.json

@@ -1,0 +1,126 @@
+@use 'sass:map';
+@use './tokens/colors.scss' as colors;
+@use './tokens/breakpoints.scss' as breakpoints;
+@use './tokens/typography.scss' as typography;
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: typography.$dm-serif;
+  hyphens: auto;
+}
+
+h1,
+.h1 {
+  font-size: 2.875rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 3.375rem;
+  }
+}
+
+h2,
+.h2 {
+  font-size: 2.375rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 2.875rem;
+  }
+}
+
+h3,
+.h3 {
+  font-size: 1.5rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 2rem;
+  }
+}
+
+h4,
+.h4 {
+  font-size: 1.25rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1.5rem;
+  }
+}
+
+h5,
+.h5 {
+  font-size: 1rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1.25rem;
+  }
+}
+
+h6,
+.h6 {
+  font-size: 0.875rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1rem;
+  }
+}
+
+p,
+.text-normal {
+  font-size: 1rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1.125rem;
+  }
+}
+
+.text-small {
+  font-size: 0.875rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1rem;
+  }
+}
+
+.text-large {
+  font-size: 1.125rem;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    font-size: 1.25rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: colors.$secondary;
+  transition:
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: colors.$secondary-dark;
+  }
+}
+
+mark,
+.mark {
+  background-color: colors.$secondary-light;
+}
+
+pre {
+  text-wrap: wrap;
+}
+
+.underline {
+  text-decoration: underline;
+}

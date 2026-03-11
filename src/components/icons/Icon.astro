@@ -1,0 +1,29 @@
+---
+import classNames from 'clsx';
+
+interface Props {
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const { class: className, width = 24, height = 24, ...props } = Astro.props;
+---
+
+<svg
+  class={classNames(className, 'icon')}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${width} ${height}`}
+  width={`${width}px`}
+  height={`${height}px`}
+  aria-hidden="true"
+  {...props}
+>
+  <slot />
+</svg>
+
+<style>
+  .icon {
+    color: inherit;
+  }
+</style>

@@ -1,0 +1,9 @@
+#import '@content/SiteInfo/NavigationItem.fragment.graphql';
+
+fragment NavigationSubMenu on SubmenuItemRecord {
+  id
+  label
+  menu {
+    ...NavigationItem
+  }
+}

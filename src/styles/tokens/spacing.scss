@@ -1,0 +1,43 @@
+@use 'sass:math';
+
+$base-font-size: 16;
+$px: (
+  1: 1px,
+  2: 2px,
+  4: 4px,
+  8: 8px,
+  10: 10px,
+  12: 12px,
+  16: 16px,
+  24: 24px,
+  32: 32px,
+  40: 40px,
+  48: 48px,
+  64: 64px,
+  96: 96px,
+  120: 120px,
+  128: 128px,
+  160: 160px,
+  180: 180px,
+  200: 200px,
+);
+$rem: (
+  1: #{math.div(1, $base-font-size)}rem,
+  2: #{math.div(2, $base-font-size)}rem,
+  4: #{math.div(4, $base-font-size)}rem,
+  8: #{math.div(8, $base-font-size)}rem,
+  10: #{math.div(10, $base-font-size)}rem,
+  12: #{math.div(12, $base-font-size)}rem,
+  16: #{math.div(16, $base-font-size)}rem,
+  24: #{math.div(24, $base-font-size)}rem,
+  32: #{math.div(32, $base-font-size)}rem,
+  40: #{math.div(40, $base-font-size)}rem,
+  48: #{math.div(48, $base-font-size)}rem,
+  64: #{math.div(64, $base-font-size)}rem,
+  96: #{math.div(96, $base-font-size)}rem,
+  120: #{math.div(120, $base-font-size)}rem,
+  128: #{math.div(128, $base-font-size)}rem,
+  160: #{math.div(160, $base-font-size)}rem,
+  180: #{math.div(180, $base-font-size)}rem,
+  200: #{math.div(200, $base-font-size)}rem,
+);

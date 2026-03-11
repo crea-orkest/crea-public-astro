@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/z-indices.scss' as z;
+
+.root {
+  background-color: colors.$background;
+  padding-top: map.get(spacing.$rem, 4);
+  padding-bottom: map.get(spacing.$rem, 4);
+  z-index: z.$high;
+}
+
+.content {
+  display: flex;
+  gap: map.get(spacing.$rem, 16);
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    flex-direction: row-reverse;
+  }
+}
+
+.list {
+  display: none;
+  flex-direction: column;
+  background-color: colors.$background;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: map.get(spacing.$rem, 48);
+    flex-shrink: 0;
+    margin-right: auto;
+  }
+}
+
+.logoLink {
+  margin: map.get(spacing.$rem, 16) 0;
+  margin-right: auto;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+.logo {
+  position: relative;
+  object-fit: contain;
+  width: 175px;
+  height: 40px;
+}

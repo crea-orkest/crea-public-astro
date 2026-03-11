@@ -1,0 +1,23 @@
+#import './SeoField.fragment.graphql';
+#import '@components/Navigation/Navigation.fragment.graphql';
+
+query SiteInfoCollectionEntry {
+  general {
+    __typename
+    id
+    title
+    ...Navigation
+  }
+  seo: _site {
+    __typename
+    globalSeo {
+      facebookPageUrl
+      siteName
+      titleSuffix
+      twitterAccount
+      fallbackSeo {
+        ...SeoField
+      }
+    }
+  }
+}

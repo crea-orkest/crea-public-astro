@@ -1,0 +1,40 @@
+---
+import classNames from 'clsx';
+import CreaOrkestLogo from '@components/icons/crea-orkest-logo.astro';
+import styles from './styles.module.scss';
+import { getEntry } from '@lib/content';
+import NavigationItem from '@components/NavigationItem/NavigationItem.astro';
+import NavigationSubMenu from '@components/NavigationSubMenu/NavigationSubMenu.astro';
+import MobileMenu from '@components/mobileMenu/MobileMenu.astro';
+
+const generalInfo = await getEntry('SiteInfo', 'general');
+---
+
+<nav class={classNames(styles.root, 'content-layout')}>
+  <div class={classNames(styles.content)}>
+    <a href="/" class={classNames(styles.logoLink)}>
+      <CreaOrkestLogo class={classNames(styles.logo)} />
+      <span class="sr-only">Ga naar home</span>
+    </a>
+
+    <MobileMenu menu={generalInfo?.data.menu} />
+
+    <ul class={classNames(styles.list)}>
+      {
+        generalInfo?.data.menu?.map((item) => {
+          if ('link' in item) {
+            return (
+              <NavigationItem slug={item?.link?.slug} label={item.label} />
+            );
+          }
+
+          if ('menu' in item) {
+            return <NavigationSubMenu label={item.label} subMenu={item.menu} />;
+          }
+
+          return <NavigationItem slug={'/'} label={'Error'} />;
+        })
+      }
+    </ul>
+  </div>
+</nav>

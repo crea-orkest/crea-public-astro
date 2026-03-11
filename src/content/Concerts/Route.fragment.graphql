@@ -1,0 +1,6 @@
+fragment ConcertRoute on ConcertRecord {
+  __typename
+  id
+  title
+  slug
+}

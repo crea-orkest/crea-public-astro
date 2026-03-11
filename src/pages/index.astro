@@ -1,0 +1,11 @@
+---
+import Layout from '@layouts/Default.astro';
+import { getEntry } from '@lib/content';
+export const HOMEPAGE_SLUG = 'homepage';
+
+const entry = (await getEntry('Pages', HOMEPAGE_SLUG))!;
+---
+
+<Layout>
+  <h1>{entry.data.title}</h1>
+</Layout>

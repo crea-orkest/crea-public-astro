@@ -1,0 +1,6 @@
+fragment PageRoute on PageRecord {
+  __typename
+  id
+  title
+  slug
+}

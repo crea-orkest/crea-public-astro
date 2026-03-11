@@ -1,0 +1,5 @@
+fragment SeoField on SeoField {
+  description
+  title
+  twitterCard
+}

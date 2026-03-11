@@ -1,0 +1,9 @@
+#import '@content/Concerts/Route.fragment.graphql'
+#import '@content/Identifiable.fragment.graphql';
+
+query ConcertCollectionEntry($slug: String!) {
+  record: concert(filter: { slug: { eq: $slug } }) {
+    ...Identifiable
+    ...ConcertRoute
+  }
+}

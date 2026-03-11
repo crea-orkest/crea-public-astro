@@ -1,0 +1,138 @@
+---
+import styles from './styles.module.scss';
+import classNames from 'clsx';
+import { getEntry } from '@lib/content';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+
+const generalInfo = await getEntry('SiteInfo', 'general');
+---
+
+<footer class={classNames(styles.root, 'with-background')}>
+  <div class={classNames(styles.content, 'content-layout')}>
+    <div>
+      <h2 class={classNames(styles.title)}>
+        <span class="sr-only">Footer</span>
+        CREA Orkest
+      </h2>
+
+      <address class={classNames(styles.address)}>
+        <a
+          class={classNames(styles.addressLink)}
+          href="https://maps.google.com/?q=Nieuwe+Achtergracht+170,+1018+WV+Amsterdam"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Nieuwe Achtergracht 170</span>
+          <span>1018 WV Amsterdam</span>
+        </a>
+      </address>
+
+      <ul class={classNames(styles.list, styles.logoList)}>
+        <li>
+          <a
+            class={classNames(styles.logoLink)}
+            href="https://www.crea.nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              class={classNames(styles.logo)}
+              src="/img/logo-crea-cultureel-studentencentrum.png"
+              alt="logo CREA"
+            />
+            <span class="sr-only">Ga naar crea.nl</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class={classNames(styles.logoLink)}
+            href="https://www.uva.nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              class={classNames(styles.logo)}
+              src="/img/logo-uva.png"
+              alt="logo UVA"
+            />
+            <span class="sr-only">Ga naar uva.nl</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class={classNames(styles.logoLink)}
+            href="https://www.hva.nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              class={classNames(styles.logo)}
+              src="/img/logo-hva.png"
+              alt="logo HVA"
+            />
+            <span class="sr-only">Ga naar hva.nl</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class={classNames(styles.title)}>Navigatie</h3>
+      <ul class={classNames(styles.list)}>
+        {
+          generalInfo?.data.menu.map((item) => {
+            if ('link' in item && item?.link?.slug && item.label) {
+              return (
+                <li>
+                  <a
+                    class={classNames(styles.link)}
+                    href={slugFormatter({ slug: item?.link?.slug })}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            }
+            return null;
+          })
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class={classNames(styles.title)}>Volg ons</h3>
+      <ul class={classNames(styles.list)}>
+        <li>
+          <a
+            class={classNames(styles.link)}
+            href="https://facebook.com/creaorkest"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+        </li>
+        <li>
+          <a
+            class={classNames(styles.link)}
+            href="https://www.instagram.com/creaorkest/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+          </a>
+        </li>
+        <li>
+          <a
+            class={classNames(styles.link)}
+            href="https://www.youtube.com/user/creaorkestpr"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Youtube
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
