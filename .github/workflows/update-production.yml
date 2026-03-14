@@ -1,0 +1,21 @@
+name: Update production
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  Update-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Update
+        run: |
+          git checkout production
+          git merge $GITHUB_REF
+          git push origin production
