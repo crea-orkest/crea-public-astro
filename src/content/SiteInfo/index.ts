@@ -12,7 +12,7 @@ type Meta<T extends SiteInfoRecord> = {
   recordType: NonNullable<T>['__typename']; // The type of the record in DatoCMS
   path: string; // The path of the page, excluding the locale
 };
-export type PageCollectionEntry<R extends SiteInfoRecord> = R & {
+export type SiteInfoCollectionEntry<R extends SiteInfoRecord> = R & {
   id: 'general' | 'seo'; // A unique ID for the entry in the content collection, combining the path and locale
   meta: Meta<R>;
 };
@@ -23,7 +23,7 @@ const name = 'SiteInfo' as const;
  * Loads a single entry from the collection by its ID and locale.
  *
  * @param path - The path of the entry to load.
- * @returns A promise that resolves to a PageCollectionEntry object or undefined if not found.
+ * @returns A promise that resolves to a SiteInfoCollectionEntry object or undefined if not found.
  */
 const loadEntry = async () => {
   const { seo, general } = await datocmsRequest<SiteInfoCollectionEntryQuery>({
@@ -48,13 +48,13 @@ const loadEntry = async () => {
         recordType: seo.__typename,
         path: 'seo',
       },
-    }] satisfies PageCollectionEntry<SiteInfoRecord>[];
+    }] satisfies SiteInfoCollectionEntry<SiteInfoRecord>[];
 };
 
 /**
  * Loads all entries from the collection, mapping them to their respective locales.
  *
- * @returns A promise that resolves to an array of PageCollectionEntry objects.
+ * @returns A promise that resolves to an array of SiteInfoCollectionEntry objects.
  **/
 const loadCollection = async () => {
   // For each id/locale pair, load the entry and return it.
@@ -62,12 +62,12 @@ const loadCollection = async () => {
   // separate request for each entry.
   return Promise.all([loadEntry()]).then((entries) =>
     entries.filter((entry) => entry !== undefined),
-  ).then((entries) => entries.flat() as PageCollectionEntry<SiteInfoRecord>[]);
+  ).then((entries) => entries.flat() as SiteInfoCollectionEntry<SiteInfoRecord>[]);
 };
 
 const collection = defineCollection({
   loader: loadCollection,
-  schema: z.custom<PageCollectionEntry<SiteInfoRecord>>(),
+  schema: z.custom<SiteInfoCollectionEntry<SiteInfoRecord>>(),
 });
 
 export default {
