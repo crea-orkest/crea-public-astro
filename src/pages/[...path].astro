@@ -4,6 +4,8 @@ import { getCollection, getEntry } from '@lib/content';
 import { HOMEPAGE_SLUG } from './index.astro';
 import { CONCERTS_SLUG } from '@content/Concerts';
 
+import ContentPage from '@layouts/Pages/ContentPage/ContentPage.astro';
+
 export async function getStaticPaths() {
   const excludedSlugs = [HOMEPAGE_SLUG, CONCERTS_SLUG];
   const pages = await getCollection(
@@ -23,5 +25,5 @@ if (!entry) {
 ---
 
 <Layout>
-  <h1>{entry.data.title}</h1>
+  <ContentPage data={entry.data} />
 </Layout>
