@@ -1,0 +1,25 @@
+#import '@content/Identifiable.fragment.graphql';
+#import '@content/Concerts/Route.fragment.graphql';
+#import '@content/Pages/Route.fragment.graphql';
+#import '@blocks/ActionButtonBlock/ActionButtonBlock.fragment.graphql';
+
+fragment Header on HeaderRecord {
+  ...Identifiable
+  body {
+    value
+    blocks {
+      ... on CallToActionRecord {
+        ...ActionButtonBlock
+      }
+    }
+    links {
+      ... on ConcertRecord {
+        ...ConcertRoute
+      }
+      ... on PageRecord {
+        ...PageRoute
+      }
+    }
+  }
+  cloudinaryCover
+}

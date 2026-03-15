@@ -1,0 +1,56 @@
+---
+import type { HTMLTag } from 'astro/types';
+import classNames from 'clsx';
+import {
+  isCdaStructuredTextValue,
+  isEmptyDocument,
+} from 'datocms-structured-text-utils';
+import type { HeaderFragment } from '@lib/datocms/types';
+import type { Image } from '@lib/services/cloudinary/types';
+import DynamicTag from '@components/DynamicTag.astro';
+import Text from '@components/Text/Text.astro';
+import CloudinaryImage from '@components/CloudinaryImage/CloudinaryImage.astro';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  class?: string;
+  tag?: HTMLTag;
+  title?: string;
+  body?: HeaderFragment['body'];
+  cover?: Image;
+}
+
+const { class: className, tag = 'header', title, body, cover } = Astro.props;
+---
+
+<DynamicTag
+  as={tag}
+  class={classNames(className, styles.header, 'with-background', {
+    [`${styles.withImage}`]: cover?.url,
+    [`${styles.withBody}`]: !isEmptyDocument(body),
+  })}
+>
+  <div class={classNames(styles.headerContent, 'content-layout')}>
+    {
+      title && (
+        <h1
+          class={classNames({
+            'sr-only': body || (!body && cover?.url),
+          })}
+        >
+          {title}
+        </h1>
+      )
+    }
+    {isCdaStructuredTextValue(body) && <Text data={body} />}
+  </div>
+  {
+    cover?.url && (
+      <div class={classNames(styles.headerImageWrapper)}>
+        <CloudinaryImage class={classNames(styles.headerImage)} image={cover} />
+        <div class={classNames(styles.background)} />
+      </div>
+    )
+  }
+</DynamicTag>

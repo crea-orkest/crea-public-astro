@@ -1,0 +1,37 @@
+---
+import Link from '@components/Link/Link.astro';
+import styles from './styles.module.scss';
+
+interface Props {
+  lat: number;
+  lng: number;
+  title: string;
+}
+const { lat, lng, title } = Astro.props;
+
+const linkText = 'Open in Google Maps';
+const staticMapKey = import.meta.env.GOOGLE_MAPS_STATIC_API_KEY;
+---
+
+<Link
+  href={`https://maps.google.com/?q=${lat},${lng}`}
+  openInNewTab
+  class={styles.staticMapLink}
+>
+  {
+    staticMapKey ? (
+      <>
+        <span class="sr-only">{linkText}</span>
+        <img
+          class={styles.staticMap}
+          src={`https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x800&key=${staticMapKey}&markers=color:red%7C${lat},${lng}`}
+          alt={title}
+          width={800}
+          height={800}
+        />
+      </>
+    ) : (
+      <span class={styles.staticMapLinkText}>{linkText}</span>
+    )
+  }
+</Link>

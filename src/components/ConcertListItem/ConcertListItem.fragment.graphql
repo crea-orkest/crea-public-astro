@@ -1,0 +1,12 @@
+#import '@component/LocationDetail/LocationDetail.fragment.graphql';
+
+fragment ConcertListItem on ConcertRecord {
+  title
+  slug
+  locations {
+    ...LocationDetail
+  }
+  cloudinaryPoster
+  music
+  extraInfo
+}

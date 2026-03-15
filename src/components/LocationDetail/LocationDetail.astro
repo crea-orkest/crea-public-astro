@@ -1,0 +1,33 @@
+---
+import type { LocationDetailFragment } from '@lib/datocms/types';
+
+import styles from './styles.module.scss';
+import Map from './Map.astro';
+
+interface Props {
+  locationItem: LocationDetailFragment;
+}
+
+const { locationItem } = Astro.props;
+---
+
+<address class={styles.root}>
+  <div class={styles.details}>
+    <h3 class="h4">{locationItem.location?.title ?? 'Locatie'}</h3>
+    {
+      locationItem.location?.addressTitle && (
+        <p class={styles.detailsText}>{locationItem.location.addressTitle}</p>
+      )
+    }
+  </div>
+  {
+    locationItem.location?.address?.latitude &&
+      locationItem.location?.address?.longitude && (
+      <Map
+        lat={locationItem.location.address.latitude}
+        lng={locationItem.location.address.longitude}
+        title={locationItem.location.title ?? 'Locatie'}
+      />
+    )
+  }
+</address>

@@ -1,0 +1,117 @@
+@use 'sass:map';
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+@use '../../styles/tokens/z-indices.scss' as z;
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: colors.$primary;
+  padding: map.get(spacing.$rem, 64) 0;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding: map.get(spacing.$rem, 96) 0;
+  }
+}
+
+.header.withImage {
+  padding: map.get(spacing.$rem, 96) 0;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding: map.get(spacing.$rem, 128) 0;
+  }
+}
+
+.header.withImage:not(.withBody) {
+  min-height: 30vh;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    min-height: 50vh;
+  }
+}
+
+header.header.withImage {
+  min-height: 50vh;
+  padding: map.get(spacing.$rem, 64) 0;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding: map.get(spacing.$rem, 96) 0;
+    min-height: 75vh;
+  }
+}
+
+.headerContent {
+  position: relative;
+  height: 100%;
+  color: colors.$background;
+  text-align: left;
+  z-index: z.$low;
+  overflow: hidden;
+
+  h2,
+  h1 {
+    font-size: 2.375rem;
+    color: colors.$secondary-light;
+    text-overflow: ellipsis;
+
+    @media screen and (min-width: breakpoints.$sm) {
+      font-size: 2.875rem;
+    }
+  }
+
+  @media screen and (min-width: breakpoints.$sm) {
+    text-align: center;
+  }
+
+  > * {
+    margin-inline: auto;
+  }
+}
+
+.header.withImage {
+  h1,
+  h2 {
+    color: colors.$background;
+  }
+}
+
+.headerImageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.withBody .headerImageWrapper {
+  overflow: hidden;
+}
+
+.headerImage {
+  position: relative;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.withBody .headerImage {
+  filter: blur(3px);
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: linear-gradient(0.25turn, colors.$secondary, colors.$primary);
+  opacity: 0;
+}
+
+.withBody .background {
+  opacity: 0.5;
+}

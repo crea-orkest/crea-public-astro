@@ -1,0 +1,81 @@
+---
+import classNames from 'clsx';
+import Header from '@components/Header/Header.astro';
+import { isCdaStructuredTextValue } from 'datocms-structured-text-utils';
+import type {
+  ConcertRecordContentFragment,
+  PageRecordContentFragment,
+} from '@lib/datocms/types';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+import Text from '@components/Text/Text.astro';
+import TwoColumnField from '@components/TwoColumnField/TwoColumnField.astro';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  sectionClassName?: string;
+  pageTitle?: string;
+  items?: ConcertRecordContentFragment[] | PageRecordContentFragment[];
+}
+
+const { sectionClassName, pageTitle, items } = Astro.props;
+---
+
+{
+  !items && pageTitle && (
+    <Header title={pageTitle} tag="header" class={styles.header} />
+  )
+}
+
+{
+  items?.map((item, index) => {
+    let header = null;
+    let pageContent = null;
+
+    if (index === 0 && item.__typename !== 'HeaderRecord' && pageTitle) {
+      header = <Header title={pageTitle} tag="header" class={styles.header} />;
+    }
+    if (item.__typename === 'TwoColumnRecord') {
+      pageContent = (
+        <section class={classNames(styles.defaultSpacing, sectionClassName)}>
+          <TwoColumnField item={item} />
+        </section>
+      );
+    }
+    if (
+      item.__typename === 'TextBlockRecord' &&
+      isCdaStructuredTextValue(item.content)
+    ) {
+      pageContent = (
+        <section class={classNames(styles.defaultSpacing, sectionClassName)}>
+          <Text data={item.content} />
+        </section>
+      );
+    }
+    if (item.__typename === 'HeaderRecord') {
+      pageContent = (
+        <Header
+          class={classNames({
+            [`${styles.headerSpacing}`]: index > 0,
+            [`${styles.header}`]: index === 0,
+          })}
+          title={index === 0 ? pageTitle : undefined}
+          body={item.body}
+          cover={formatCloudinaryImage(
+            isOfTypeCloudinaryAsset(item.cloudinaryCover)
+              ? item.cloudinaryCover
+              : undefined,
+          )}
+          tag={index > 0 ? 'section' : 'header'}
+        />
+      );
+    }
+    return (
+      <Fragment>
+        {header}
+        {pageContent}
+      </Fragment>
+    );
+  })
+}

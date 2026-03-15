@@ -1,6 +1,7 @@
 ---
 import classNames from 'clsx';
 import { slugFormatter } from '@lib/routing/slugFormatter';
+import Link from '@components/Link/Link.astro';
 
 import styles from './styles.module.scss';
 
@@ -15,12 +16,12 @@ const { slug, label } = Astro.props;
 {
   !slug || !label ? null : (
     <li class={classNames(styles.navItem)}>
-      <a
+      <Link
         class={classNames(styles.link, 'text-large')}
         href={slugFormatter({ slug })}
       >
         {label}
-      </a>
+      </Link>
     </li>
   )
 }

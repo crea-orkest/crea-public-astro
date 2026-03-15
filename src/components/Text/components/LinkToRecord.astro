@@ -1,0 +1,44 @@
+---
+import type {
+  ConcertRouteFragment,
+  PageRouteFragment,
+} from '@lib/datocms/types';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+import { CONCERTS_SLUG } from '@content/Concerts';
+import type { HTMLAttributes } from 'astro/types';
+import Link from '@components/Link/Link.astro';
+
+type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
+  openInNewTab?: boolean;
+  record: PageRouteFragment | ConcertRouteFragment;
+};
+
+const { record, openInNewTab, ...props } = Astro.props;
+---
+
+{
+  record.__typename === 'PageRecord' && (
+    <Link
+      href={slugFormatter({ slug: record.slug })}
+      openInNewTab={openInNewTab}
+      {...props}
+    >
+      <slot>{record.title}</slot>
+    </Link>
+  )
+}
+
+{
+  record.__typename === 'ConcertRecord' && (
+    <Link
+      href={slugFormatter({
+        slug: record.slug,
+        prefix: CONCERTS_SLUG,
+      })}
+      openInNewTab={openInNewTab}
+      {...props}
+    >
+      <slot>{record.title}</slot>
+    </Link>
+  )
+}

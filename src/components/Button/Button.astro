@@ -1,0 +1,79 @@
+---
+import classNames from 'clsx';
+
+import styles from './styles.module.scss';
+import Link from '@components/Link/Link.astro';
+
+export type Props = {
+  variant?: 'primary' | 'secondary';
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  suffix?: string;
+  class?: string;
+  href?: string;
+  openInNewTab?: boolean;
+  download?: boolean;
+};
+
+const {
+  variant = 'primary',
+  type = 'button',
+  disabled = false,
+  suffix,
+  class: className,
+  href,
+  openInNewTab,
+  download,
+  ...props
+} = Astro.props;
+---
+
+{
+  !href && (
+    <button
+      class={classNames(
+        className,
+        styles.button,
+        styles[variant],
+        'text-small',
+      )}
+      type={type}
+      disabled={disabled}
+      {...props}
+    >
+      <slot name="leading-icon" />
+      <span>
+        <slot />
+        {suffix && <span class={styles.suffix}>{suffix}</span>}
+      </span>
+      <slot name="trailing-icon" />
+    </button>
+  )
+}
+
+{
+  href && (
+    <Link
+      class={classNames(
+        className,
+        styles.button,
+        styles[variant],
+        'text-small',
+        {
+          [`${styles.disabled}`]: disabled,
+        },
+      )}
+      href={href}
+      openInNewTab={openInNewTab}
+      download={download}
+      tab-index={disabled ? -1 : undefined}
+      {...props}
+    >
+      <slot name="leading-icon" />
+      <span>
+        <slot /> {suffix && <span class={styles.suffix}>{suffix}</span>}
+      </span>
+      <slot name="trailing-icon" />
+    </Link>
+  )
+}

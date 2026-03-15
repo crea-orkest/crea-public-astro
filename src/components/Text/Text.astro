@@ -1,0 +1,32 @@
+---
+import StructuredText from '@components/StructuredText/StructuredText.astro';
+import {
+  type CdaStructuredTextValue,
+  type Document,
+  isInlineItem,
+  isBlock,
+  isItemLink,
+} from 'datocms-structured-text-utils';
+import LinkToItem from './components/LinkToItem.astro';
+import InlineRecord from './components/InlineRecord.astro';
+import Block from './components/Block.astro';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  data: CdaStructuredTextValue | Document | null;
+}
+
+const { data } = Astro.props;
+---
+
+<div class={styles.structuredText}>
+  <StructuredText
+    data={data}
+    components={[
+      [isInlineItem, InlineRecord],
+      [isItemLink, LinkToItem],
+      [isBlock, Block],
+    ]}
+  />
+</div>

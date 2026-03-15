@@ -1,0 +1,19 @@
+---
+import type { Image } from '@lib/services/cloudinary/types';
+
+interface Props {
+  class?: string;
+  image: Image;
+}
+
+const { class: className, image, ...props } = Astro.props;
+---
+
+<img
+  class={className}
+  alt={image.alt || ''}
+  src={image.url}
+  width={image.width || 100}
+  height={image.height || 100}
+  {...props}
+/>

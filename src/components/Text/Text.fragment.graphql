@@ -1,0 +1,93 @@
+#import '@content/Concerts/Route.fragment.graphql';
+#import '@content/Pages/Route.fragment.graphql';
+#import '@blocks/ActionButtonBlock/ActionButtonBlock.fragment.graphql';
+#import '@blocks/ConcertsBlock/ConcertsBlock.fragment.graphql';
+#import '@blocks/DocumentBlock/DocumentBlock.fragment.graphql';
+#import '@blocks/ImageBlock/ImageBlock.fragment.graphql';
+#import '@blocks/VideoBlock/VideoBlock.fragment.graphql';
+#import '@blocks/MailChimpBlock/MailChimpBlock.fragment.graphql';
+
+fragment Text on TextBlockModelContentField {
+  value
+  links {
+    ... on ConcertRecord {
+      ...ConcertRoute
+    }
+    ... on PageRecord {
+      ...PageRoute
+    }
+  }
+  blocks {
+    __typename
+    ... on ConcertListRecord {
+      ...ConcertsBlock
+    }
+    ... on DocumentRecord {
+      ...DocumentBlock
+    }
+    ... on ImageRecord {
+      ...ImageBlock
+    }
+    ... on VideoRecord {
+      ...VideoBlock
+    }
+    ... on CallToActionRecord {
+      ...ActionButtonBlock
+    }
+    ... on MailchimpFormRecord {
+      ...MailchimpFormBlock
+    }
+  }
+}
+
+fragment RightContent on TwoColumnModelRightContentField {
+  value
+  links {
+    ... on ConcertRecord {
+      ...ConcertRoute
+    }
+    ... on PageRecord {
+      ...PageRoute
+    }
+  }
+  blocks {
+    ... on ConcertListRecord {
+      ...ConcertsBlock
+    }
+    ... on ImageRecord {
+      ...ImageBlock
+    }
+    ... on VideoRecord {
+      ...VideoBlock
+    }
+    ... on CallToActionRecord {
+      ...ActionButtonBlock
+    }
+  }
+}
+
+fragment LeftContent on TwoColumnModelLeftContentField {
+  value
+  links {
+    ... on ConcertRecord {
+      ...ConcertRoute
+    }
+    ... on PageRecord {
+      ...PageRoute
+    }
+  }
+  blocks {
+    ... on ConcertListRecord {
+      ...ConcertsBlock
+    }
+    ... on ImageRecord {
+      ...ImageBlock
+    }
+    ... on VideoRecord {
+      ...VideoBlock
+    }
+    ... on CallToActionRecord {
+      ...ActionButtonBlock
+    }
+  }
+}

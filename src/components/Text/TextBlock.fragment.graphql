@@ -1,0 +1,9 @@
+#import '@content/Identifiable.fragment.graphql';
+#import '@components/Text/Text.fragment.graphql';
+
+fragment TextBlock on TextBlockRecord {
+  ...Identifiable
+  content {
+    ...Text
+  }
+}

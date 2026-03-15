@@ -1,0 +1,17 @@
+fragment LocationDetail on LocationItemRecord {
+  id
+  dateTime
+  location {
+    id
+    title
+    addressTitle
+    address {
+      latitude
+      longitude
+    }
+  }
+  ticketLink
+  noTicketsText
+  ticketsText
+  afterTicketsText
+}

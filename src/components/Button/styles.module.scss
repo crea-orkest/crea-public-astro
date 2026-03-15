@@ -1,0 +1,107 @@
+@use 'sass:map';
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/radius.scss' as radius;
+
+.button {
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: map.get(spacing.$rem, 8);
+  padding: map.get(spacing.$rem, 12) map.get(spacing.$rem, 32);
+  transition:
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+  text-decoration: none;
+  border-radius: map.get(spacing.$rem, 32);
+
+  appearance: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.suffix {
+  font-weight: 400;
+  color: colors.$secondary-light;
+  transition: color 0.2s ease-in-out;
+}
+
+.primary {
+  color: colors.$background;
+  background-color: colors.$primary;
+
+  .suffix {
+    color: colors.$grey;
+  }
+
+  &:hover,
+  &:focus {
+    color: colors.$primary-dark;
+    background-color: colors.$primary-light;
+
+    .suffix {
+      color: colors.$primary;
+    }
+  }
+}
+
+.secondary {
+  color: colors.$primary-dark;
+  background-color: colors.$primary-light;
+
+  .suffix {
+    color: colors.$primary;
+  }
+
+  &:hover,
+  &:focus {
+    color: colors.$background;
+    background-color: colors.$primary;
+
+    .suffix {
+      color: colors.$grey;
+    }
+  }
+}
+
+.tertiary {
+  color: colors.$background;
+  background-color: colors.$secondary;
+
+  .suffix {
+    color: colors.$secondary-light;
+  }
+
+  &:hover,
+  &:focus {
+    color: colors.$primary-dark;
+    background-color: colors.$secondary-light;
+
+    .suffix {
+      color: colors.$primary;
+    }
+  }
+}
+
+.button.disabled,
+.button:disabled {
+  background-color: colors.$grey;
+  cursor: auto;
+  pointer-events: none;
+
+  .suffix {
+    color: colors.$light;
+  }
+
+  &:hover,
+  &:focus {
+    color: colors.$background;
+  }
+}
