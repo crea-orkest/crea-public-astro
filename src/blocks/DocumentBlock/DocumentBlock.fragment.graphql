@@ -1,0 +1,8 @@
+
+#import '@content/Identifiable.fragment.graphql';
+
+fragment DocumentBlock on DocumentRecord {
+    ...Identifiable
+    title
+    cloudinaryDocument
+  }

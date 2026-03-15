@@ -1,0 +1,7 @@
+@use '../../styles/tokens/radius.scss' as radius;
+
+.image {
+  border-radius: radius.$md;
+  width: 100%;
+  height: auto;
+}

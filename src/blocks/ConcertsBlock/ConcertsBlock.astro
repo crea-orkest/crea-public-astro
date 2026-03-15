@@ -1,0 +1,38 @@
+---
+import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
+import { getCollection } from '@lib/content';
+import type { ConcertsBlockFragment } from '@lib/datocms/types';
+
+interface Props {
+  record: ConcertsBlockFragment;
+}
+
+const { record } = Astro.props;
+
+const concerts = await getCollection('Concerts');
+let renderedConcerts = concerts;
+if (record.futureConcerts) {
+  renderedConcerts = [concerts[0]];
+} else if (record.pinnedConcerts?.length) {
+  renderedConcerts = concerts.filter((concert) =>
+    record.pinnedConcerts?.some(
+      (pinned) => pinned.id === concert.data.meta.recordId,
+    ),
+  );
+}
+---
+
+<ul>
+  {
+    renderedConcerts.map((item, index) => {
+      return (
+        <ConcertListItem
+          class="content-layout--small"
+          data={item.data}
+          size="large"
+          isLast={record.pinnedConcerts.length - 1 === index}
+        />
+      );
+    })
+  }
+</ul>

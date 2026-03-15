@@ -1,0 +1,6 @@
+#import '@content/Identifiable.fragment.graphql';
+
+fragment ImageBlock on ImageRecord {
+    ...Identifiable
+    cloudinaryImage
+  }

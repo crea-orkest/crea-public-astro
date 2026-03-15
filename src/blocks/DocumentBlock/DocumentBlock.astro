@@ -1,0 +1,41 @@
+---
+import classNames from 'clsx';
+import Button from '@components/Button/Button.astro';
+import { formatCloudinaryDocument } from '@lib/services/cloudinary/formatCloudinaryDocument';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+import type { DocumentBlockFragment } from '@lib/datocms/types';
+import { formatBytes } from './formatBytes';
+import ArrowDown from '@components/icons/arrow-down.astro';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  record: DocumentBlockFragment;
+}
+
+const { record } = Astro.props;
+
+const asset = formatCloudinaryDocument(
+  isOfTypeCloudinaryAsset(record.cloudinaryDocument)
+    ? record.cloudinaryDocument
+    : undefined,
+);
+---
+
+{
+  asset && (
+    <div class={styles.root}>
+      <p class={classNames(styles.title, 'h4')}>{record.title}</p>
+      <Button
+        href={asset.url}
+        download
+        openInNewTab
+        class={styles.download}
+        suffix={asset.bytes ? `(${formatBytes(asset.bytes, 0)})` : ''}
+      >
+        <ArrowDown slot="leading-icon" />
+        Download document
+      </Button>
+    </div>
+  )
+}

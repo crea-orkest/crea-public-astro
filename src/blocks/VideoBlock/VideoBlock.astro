@@ -1,0 +1,210 @@
+---
+import classNames from 'clsx';
+import type { VideoBlockFragment, VideoField } from '@lib/datocms/types';
+import PlayButton from './PlayButton.astro';
+import Button from '@components/Button/Button.astro';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+
+import styles from './styles.module.scss';
+import Link from '@components/Link/Link.astro';
+
+export interface Props {
+  record: VideoBlockFragment;
+}
+const { record } = Astro.props;
+const { media: video } = record;
+const aspectRatio = `${video.width} / ${video.height}`;
+const title = record.title || video.title;
+const providerName =
+  { youtube: 'YouTube', vimeo: 'Vimeo' }[video.provider] || video.provider;
+const vimeoSizeRegex = /_\d+(x\d+)?(\.\w+)?$/; // match _123(.ext) and _123x123(.ext)
+
+function getImageSrcSet({ video }: { video: VideoField }) {
+  if (
+    record.cloudinaryThumbnail &&
+    isOfTypeCloudinaryAsset(record.cloudinaryThumbnail)
+  ) {
+    return undefined;
+  }
+
+  switch (video.provider) {
+  case 'youtube':
+    // YouTube has a fixed set of predefined thumbnail sizes available:
+    return [
+      `https://img.youtube.com/vi/${video.providerUid}/maxresdefault.jpg 1280w`,
+      `https://img.youtube.com/vi/${video.providerUid}/sddefault.jpg 640w`,
+      `https://img.youtube.com/vi/${video.providerUid}/hqdefault.jpg 480w`,
+      `https://img.youtube.com/vi/${video.providerUid}/mqdefault.jpg 320w`,
+    ].join(', ');
+  case 'vimeo':
+    // Vimeo can generate thumbnails at any size. We'll match the YouTube sizes:
+    return [1280, 640, 480, 320]
+      .map((size) => {
+        const url = video.thumbnailUrl.replace(
+          vimeoSizeRegex,
+          `_${size}.jpg`,
+        );
+        return `${url} ${size}w`;
+      })
+      .join(', ');
+  default:
+    return video.thumbnailUrl;
+  }
+}
+
+function getImageUrl({ video }: { video: VideoField }) {
+  if (
+    record.cloudinaryThumbnail &&
+    isOfTypeCloudinaryAsset(record.cloudinaryThumbnail)
+  ) {
+    return formatCloudinaryImage(record.cloudinaryThumbnail)?.url;
+  }
+  switch (video.provider) {
+  case 'youtube':
+    return `https://img.youtube.com/vi/${video.providerUid}/maxresdefault.jpg`;
+  case 'vimeo':
+    return video.thumbnailUrl.replace(vimeoSizeRegex, '_1280.jpg');
+  default:
+    return video.thumbnailUrl;
+  }
+}
+
+function getVideoUrl({ video }: { video: VideoField }) {
+  // the video only loads if block.autoplay is true or user clicks the thumbnail
+  // so in any case the autoplay option in the video url should always be true:
+  const autoplay = true;
+  const binaryBoolean = (value: boolean) => (value ? '1' : '0');
+  switch (video.provider) {
+  case 'youtube':
+    return new URL(
+      `https://www.youtube.com/embed/${
+        video.providerUid
+      }?${new URLSearchParams({
+        autoplay: binaryBoolean(autoplay),
+        playlist: video.providerUid,
+      })}`,
+    ).toString();
+  case 'vimeo':
+    return new URL(
+      `https://player.vimeo.com/video/${
+        video.providerUid
+      }?${new URLSearchParams({
+        autoplay: binaryBoolean(autoplay),
+        autopause: binaryBoolean(!autoplay),
+      })}`,
+    ).toString();
+  default:
+    return video.url;
+  }
+}
+---
+
+<figure>
+  <video-embed
+    data-provider={video.provider}
+    data-video-url={getVideoUrl({
+      video,
+    })}
+    style={{ aspectRatio }}
+    class={classNames(styles.borderRadius)}
+  >
+    <PlayButton href={video.url}>
+      <img
+        alt={`Speel video af: ${title}`}
+        loading="lazy"
+        src={getImageUrl({ video })}
+        srcset={getImageSrcSet({ video })}
+        style={{ aspectRatio }}
+        class={classNames(styles.borderRadius)}
+      />
+    </PlayButton>
+
+    <div class="consent-alert" role="alert" hidden>
+      <p class="consent-alert__text">
+        Accepteer {providerName} cookies om de video te bekijken.
+      </p>
+      <div class="consent-alert__actions">
+        <Button>Accepteer</Button>
+        <Link
+          href={video.url}
+          class="action--secondary"
+          openInNewTab
+        >
+          Bekijk op {providerName}
+        </Link>
+      </div>
+    </div>
+
+    <iframe
+      hidden
+      allowfullscreen
+      allow="autoplay"
+      title={title}
+      style={{ aspectRatio }}
+      class={classNames(styles.borderRadius)}></iframe>
+  </video-embed>
+  <figcaption>
+    <Link href={video.url} openInNewTab>
+      {title} (Bekijk op {providerName})
+    </Link>
+  </figcaption>
+</figure>
+
+<script src="./VideoBlock.client.ts"></script>
+
+<style>
+  /* functional styling */
+  video-embed {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: #f1f1f1;
+  }
+
+  img,
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    z-index: 0;
+    object-fit: cover;
+  }
+  iframe {
+    z-index: 3;
+    border: none;
+  }
+
+  .consent-alert:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .consent-alert__text {
+    max-width: 400px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .consent-alert__actions {
+    text-align: center;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+
+  [data-icon='external'] {
+    width: 1em;
+    height: 1em;
+    margin-left: 0.5em;
+    vertical-align: middle;
+  }
+</style>

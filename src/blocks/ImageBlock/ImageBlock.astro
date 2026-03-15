@@ -1,0 +1,21 @@
+---
+import CloudinaryImage from '@components/CloudinaryImage/CloudinaryImage.astro';
+import type { ImageBlockFragment } from '@lib/datocms/types';
+
+import styles from './styles.module.scss';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+
+interface Props {
+  record: ImageBlockFragment;
+}
+
+const { record } = Astro.props;
+const asset = formatCloudinaryImage(
+  isOfTypeCloudinaryAsset(record.cloudinaryImage)
+    ? record.cloudinaryImage
+    : undefined,
+);
+---
+
+{asset && <CloudinaryImage class={styles.image} image={asset} />}

@@ -1,0 +1,10 @@
+#import '@content/Identifiable.fragment.graphql';
+#import '@content/Concerts/Route.fragment.graphql';
+
+fragment ConcertsBlock on ConcertListRecord {
+  ...Identifiable
+  pinnedConcerts {
+    ...ConcertRoute
+  }
+  futureConcerts
+}

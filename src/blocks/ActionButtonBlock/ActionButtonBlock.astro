@@ -1,0 +1,58 @@
+---
+import type { ActionButtonBlockFragment } from '@lib/datocms/types';
+import Button, {
+  type Props as ButtonProps,
+} from '@components/Button/Button.astro';
+import ArrowRight from '@components/icons/arrow-right.astro';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+import { CONCERTS_SLUG } from '@content/Concerts';
+
+interface Props {
+  record: ActionButtonBlockFragment;
+}
+
+const { record } = Astro.props;
+
+const { pageLink, externalUrl, label, variant } = record;
+const buttonVariant = variant as ButtonProps['variant'];
+---
+
+{
+  !pageLink && (
+    <Button
+      href={externalUrl || ''}
+      variant={buttonVariant}
+      openInNewTab
+    >
+      {label}
+      <ArrowRight slot="trailing-icon" />
+    </Button>
+  )
+}
+
+{
+  pageLink?.__typename === 'ConcertRecord' && (
+    <Button
+      href={slugFormatter({
+        slug: pageLink.slug,
+        prefix: CONCERTS_SLUG,
+      })}
+      variant={buttonVariant}
+    >
+      {label}
+      <ArrowRight slot="trailing-icon" />
+    </Button>
+  )
+}
+
+{
+  pageLink?.__typename === 'PageRecord' && (
+    <Button
+      href={slugFormatter({ slug: pageLink.slug })}
+      variant={buttonVariant}
+    >
+      {label}
+      <ArrowRight slot="trailing-icon" />
+    </Button>
+  )
+}
