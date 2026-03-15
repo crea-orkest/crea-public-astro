@@ -1,0 +1,123 @@
+---
+import classNames from 'clsx';
+import type { ConcertCollectionEntry } from '@content/Concerts';
+import PageContent from '@components/PageContent/PageContent.astro';
+
+import styles from './styles.module.scss';
+import CloudinaryImage from '@components/CloudinaryImage/CloudinaryImage.astro';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
+import LocationDetail from '@components/LocationDetail/LocationDetail.astro';
+
+interface Props {
+  data: ConcertCollectionEntry;
+}
+
+const { data } = Astro.props;
+
+const { cloudinaryPoster, content, title, music, extraInfo, locations } = data;
+
+const image = formatCloudinaryImage(
+  isOfTypeCloudinaryAsset(cloudinaryPoster) ? cloudinaryPoster : undefined,
+);
+---
+
+<article class={styles.root}>
+  <header
+    class={classNames(styles.header, 'with-background', {
+      [`${styles.withImage}`]: image?.url,
+    })}
+  >
+    {
+      image?.url && (
+        <div class={classNames(styles.headerImageWrapper)}>
+          <CloudinaryImage
+            class={classNames(styles.headerImage)}
+            image={image}
+          />
+          <div class={classNames(styles.background)} />
+        </div>
+      )
+    }
+
+    <div class={classNames(styles.titleContainer, 'content-layout')}>
+      {typeof title === 'string' && <h2>{title}</h2>}
+
+      {
+        music && Object.entries(music).length > 0 && (
+          <ul class={styles.program}>
+            {Object.entries(music).map(([composer, title]) => {
+              return (
+                <li class={classNames(styles.programItem, 'text-large')}>
+                  <span class={styles.programTitle}>{composer}</span> — {title}
+                </li>
+              );
+            })}
+          </ul>
+        )
+      }
+    </div>
+  </header>
+  <div
+    class={classNames(styles.container, 'content-layout', {
+      [`${styles.noGrid}`]: !image?.url,
+    })}
+  >
+    <aside class={styles.sidebar}>
+      <div class={styles.sidebarContent}>
+        {
+          image?.url && (
+            <div class={classNames(styles.imageContainer)}>
+              <CloudinaryImage class={classNames(styles.image)} image={image} />
+            </div>
+          )
+        }
+
+        {
+          extraInfo && Object.entries(extraInfo).length > 0 && (
+            <ul class={styles.persons}>
+              {Object.entries(extraInfo).map(([role, name]) => {
+                return (
+                  <li class={styles.person}>
+                    <p class={classNames(styles.personTitle, 'text-small')}>
+                      {role}
+                    </p>
+                    <p class="h5">{name}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          )
+        }
+      </div>
+    </aside>
+    <div class={styles.content}>
+      {
+        locations.length > 0 && (
+          <div class={styles.eventListItem}>
+            <ConcertListItem
+              data={data}
+              size="large"
+              isLast={true}
+              title="Agenda"
+              showLink={false}
+              showImage={false}
+              showProgram={false}
+            />
+          </div>
+        )
+      }
+
+      <PageContent sectionClassName={styles.pageContent} items={content} />
+    </div>
+  </div>
+  <div class={styles.locations}>
+    {
+      data.locations.map((location) => {
+        if (!location?.id || !location?.dateTime) return null;
+        return <LocationDetail locationItem={location} />;
+      })
+    }
+  </div>
+</article>

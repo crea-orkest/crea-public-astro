@@ -6,16 +6,17 @@ import { getEntry } from '@lib/content';
 import NavigationItem from '@components/NavigationItem/NavigationItem.astro';
 import NavigationSubMenu from '@components/NavigationSubMenu/NavigationSubMenu.astro';
 import MobileMenu from '@components/MobileMenu/MobileMenu.astro';
+import Link from '@components/Link/Link.astro';
 
 const generalInfo = await getEntry('SiteInfo', 'general');
 ---
 
 <nav class={classNames(styles.root, 'content-layout')}>
   <div class={classNames(styles.content)}>
-    <a href="/" class={classNames(styles.logoLink)}>
+    <Link href="/" class={classNames(styles.logoLink)}>
       <CreaOrkestLogo class={classNames(styles.logo)} />
       <span class="sr-only">Ga naar home</span>
-    </a>
+    </Link>
 
     <MobileMenu menu={generalInfo?.data.menu} />
 
