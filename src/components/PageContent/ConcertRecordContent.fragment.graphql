@@ -1,0 +1,16 @@
+#import '@components/Header/Header.fragment.graphql';
+#import '@components/Text/TextBlock.fragment.graphql';
+#import '@components/TwoColumnField/TwoColumnField.fragment.graphql';
+
+fragment ConcertRecordContent on ConcertModelContentField {
+  __typename
+  ... on HeaderRecord {
+    ...Header
+  }
+  ... on TextBlockRecord {
+    ...TextBlock
+  }
+  ... on TwoColumnRecord {
+    ...TwoColumnField
+  }
+}

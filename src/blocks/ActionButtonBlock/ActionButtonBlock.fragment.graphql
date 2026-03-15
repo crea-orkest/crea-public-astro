@@ -1,0 +1,18 @@
+#import '@content/Identifiable.fragment.graphql';
+#import '@content/Concerts/Route.fragment.graphql';
+#import '@content/Pages/Route.fragment.graphql';
+
+fragment ActionButtonBlock on CallToActionRecord {
+  ...Identifiable
+  label
+  externalUrl
+  pageLink {
+    ... on ConcertRecord {
+      ...ConcertRoute
+    }
+    ... on PageRecord {
+      ...PageRoute
+    }
+  }
+  variant
+}

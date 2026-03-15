@@ -1,0 +1,15 @@
+---
+import type {
+  ConcertRouteFragment,
+  PageRouteFragment,
+} from '@lib/datocms/types';
+import LinkToItem from './LinkToItem.astro';
+
+interface Props {
+  link: ConcertRouteFragment | PageRouteFragment;
+}
+
+const { link, ...props } = Astro.props;
+---
+
+<LinkToItem {link} {...props} />

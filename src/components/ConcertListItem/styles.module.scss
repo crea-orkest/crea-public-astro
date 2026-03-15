@@ -1,0 +1,324 @@
+@use 'sass:map';
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/radius.scss' as radius;
+@use '../../styles/tokens/typography.scss' as typography;
+@use '../../styles/tokens/layout.scss' as layout;
+@use '../../styles/tokens/z-indices.scss' as z;
+
+$image-width: 15rem;
+$image-large-width: 20rem;
+$image-height: calc($image-width * 1.414);
+$image-large-height: calc($image-large-width * 1.414);
+$dot-size: 1rem;
+$dot-large-size: 1.25rem;
+$dot-offset: 0.5rem;
+$dot-large-mobile-offset: 0.75rem;
+$dot-large-desktop-offset: 1.25rem;
+$border-size: 0.1rem;
+$border-large-size: 0.2rem;
+$padding-left: map.get(spacing.$rem, 24);
+$padding-large-left: map.get(spacing.$rem, 40);
+
+%line {
+  position: absolute;
+  left: 0;
+  top: calc(map.get(spacing.$rem, layout.$default-mobile-spacing) * -1);
+  content: '';
+  height: calc(100% + map.get(spacing.$rem, layout.$default-mobile-spacing));
+  border-left: $border-size solid colors.$secondary;
+  transform: translateX(calc($border-size / 2 * -1));
+  z-index: z.$negative;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    top: calc(map.get(spacing.$rem, layout.$default-desktop-spacing) * -1);
+    height: calc(100% + map.get(spacing.$rem, layout.$default-desktop-spacing));
+  }
+}
+
+.root {
+  position: relative;
+  padding-left: $padding-left;
+  padding-bottom: map.get(spacing.$rem, layout.$default-mobile-spacing);
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding-bottom: map.get(spacing.$rem, layout.$default-desktop-spacing);
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: map.get(spacing.$rem, 8);
+}
+
+.content {
+  display: flex;
+  gap: map.get(spacing.$rem, 16);
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    flex-direction: row;
+  }
+
+  .program {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    margin-bottom: map.get(spacing.$rem, 24);
+
+    @media screen and (min-width: breakpoints.$sm) {
+      margin-bottom: map.get(spacing.$rem, 48);
+    }
+  }
+
+  .locations {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .location {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: map.get(spacing.$rem, 12);
+
+      @media screen and (min-width: breakpoints.$sm) {
+        margin-bottom: map.get(spacing.$rem, 24);
+      }
+    }
+  }
+}
+
+.imageContainer {
+  border-radius: radius.$md;
+  background-color: colors.$secondary-light;
+  flex-shrink: 0;
+  max-width: fit-content;
+  margin-bottom: map.get(spacing.$rem, 16);
+
+  @media screen and (min-width: breakpoints.$sm) {
+    width: $image-width;
+    height: $image-height;
+  }
+}
+
+.image {
+  width: $image-width;
+  height: $image-height;
+  max-width: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+  transform: translate(-5%, 2.5%);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.programTitle {
+  font-weight: bold;
+}
+
+.locationTitle {
+  margin: 0;
+  position: relative;
+  order: 2;
+}
+
+.locationSubtitle {
+  margin: 0;
+  order: 1;
+}
+
+.locationLinkContainer {
+  font-weight: bold;
+  order: 3;
+}
+
+.locationLink {
+  display: flex;
+  align-items: center;
+  gap: map.get(spacing.$rem, 8);
+}
+
+.locationLinkIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.eventLink {
+  width: 100%;
+  font-family: typography.$dm-sans;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: map.get(spacing.$rem, 8);
+}
+
+.hasImage .eventLink {
+  justify-content: flex-end;
+  max-width: $image-width;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    max-width: initial;
+  }
+}
+
+.large.hasImage .eventLink {
+  max-width: $image-large-width;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    max-width: initial;
+  }
+}
+
+.large {
+  padding-left: $padding-large-left;
+
+  .title {
+    margin-bottom: map.get(spacing.$rem, 8);
+
+    @media screen and (min-width: breakpoints.$sm) {
+      margin-bottom: map.get(spacing.$rem, 16);
+    }
+  }
+
+  .imageContainer {
+    @media screen and (min-width: breakpoints.$sm) {
+      margin-bottom: map.get(spacing.$rem, 24);
+      width: $image-large-width;
+      height: $image-large-height;
+    }
+  }
+
+  .image {
+    width: $image-large-width;
+    height: $image-large-height;
+    transform: translate(-5%, 2.5%);
+
+    @media screen and (min-width: breakpoints.$sm) {
+      transform: translate(-7%, 4.5%);
+    }
+  }
+
+  .content {
+    @media screen and (min-width: breakpoints.$sm) {
+      gap: map.get(spacing.$rem, 40);
+    }
+  }
+
+  .program {
+    margin-bottom: map.get(spacing.$rem, 32);
+
+    @media screen and (min-width: breakpoints.$sm) {
+      margin-bottom: map.get(spacing.$rem, 64);
+    }
+  }
+
+  .locations {
+    .location {
+      margin-bottom: map.get(spacing.$rem, 24);
+
+      @media screen and (min-width: breakpoints.$sm) {
+        margin-bottom: map.get(spacing.$rem, 48);
+      }
+    }
+  }
+
+  .locationLink {
+    gap: map.get(spacing.$rem, 12);
+  }
+
+  .locationLinkIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.isLast {
+  padding-bottom: 0;
+}
+
+// LocationTitle dots
+.locationTitle::before {
+  content: '';
+  position: absolute;
+  top: $dot-offset;
+  left: calc(($padding-left + ($dot-size / 2)) * -1);
+  width: $dot-size;
+  height: $dot-size;
+  border-radius: 50%;
+  background-color: colors.$secondary;
+}
+
+.large .locationTitle::before {
+  top: $dot-large-mobile-offset;
+  left: calc(($padding-large-left + ($dot-large-size / 2)) * -1);
+  width: $dot-large-size;
+  height: $dot-large-size;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    top: $dot-large-desktop-offset;
+  }
+}
+
+// Root line
+.root::before {
+  @extend %line;
+}
+
+.large::before {
+  border-left: $border-large-size solid colors.$secondary;
+  transform: translateX(calc($border-large-size / 2 * -1));
+}
+
+.isLast.oneLocation::before,
+.isLast.hasTitle::before,
+.isLast:not(.hasImage)::before {
+  height: 120%;
+}
+
+.isLast::before,
+.isLast.hasImage::before {
+  height: 100%;
+}
+
+// locationTitle line
+.isLast .location:last-child .locationTitle::after {
+  @extend %line;
+
+  border-color: colors.$background;
+  border-width: $border-size * 2;
+  height: calc(
+    100% + map.get(spacing.$rem, layout.$default-mobile-spacing) + $image-height
+  );
+  top: calc($dot-offset + $dot-size);
+  left: calc(($padding-left * -1) - ($border-size / 2));
+
+  @media screen and (min-width: breakpoints.$sm) {
+    height: calc(100% + map.get(spacing.$rem, layout.$default-desktop-spacing));
+  }
+}
+
+.large.isLast .location:last-child .locationTitle::after {
+  border-width: $border-large-size * 2;
+  height: calc(
+    100% + map.get(spacing.$rem, layout.$default-mobile-spacing) +
+      $image-large-height
+  );
+  top: calc($dot-large-mobile-offset + $dot-large-size);
+  left: calc(($padding-large-left * -1) - ($border-large-size / 2));
+
+  @media screen and (min-width: breakpoints.$sm) {
+    top: calc($dot-large-desktop-offset + $dot-large-size);
+    height: calc(100% + map.get(spacing.$rem, layout.$default-desktop-spacing));
+  }
+}
+
+.isLast:not(.hasImage) .location:last-child .locationTitle::after {
+  height: calc(100% + map.get(spacing.$rem, layout.$default-mobile-spacing));
+
+  @media screen and (min-width: breakpoints.$sm) {
+    height: calc(100% + map.get(spacing.$rem, layout.$default-desktop-spacing));
+  }
+}

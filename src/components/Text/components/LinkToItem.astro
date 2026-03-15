@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import LinkToRecord from './LinkToRecord.astro';
+import type {
+  ConcertRouteFragment,
+  PageRouteFragment,
+} from '@lib/datocms/types';
+
+type Node = {
+  meta?: {
+    id: string;
+    value: string;
+  }[];
+};
+
+export type Props = HTMLAttributes<'a'> & {
+  node?: Node;
+  link: PageRouteFragment | ConcertRouteFragment;
+};
+
+const { link: record, node, ...props } = Astro.props;
+
+const openInNewTab = Boolean(
+  node?.meta?.find(
+    (entry) => entry.id === 'target' && entry.value === '_blank',
+  ),
+);
+---
+
+<LinkToRecord {record} {openInNewTab} {...props}><slot>{record.title}</slot></LinkToRecord>

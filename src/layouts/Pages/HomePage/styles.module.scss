@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '../../../styles/tokens/spacing.scss' as spacing;
+@use '../../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../../styles/tokens/layout.scss' as layout;
+
+.concerts {
+  padding-top: map.get(spacing.$rem, layout.$default-mobile-spacing);
+  padding-bottom: map.get(spacing.$rem, layout.$default-mobile-spacing);
+
+  @media screen and (min-width: breakpoints.$sm) {
+    padding-top: map.get(spacing.$rem, layout.$default-desktop-spacing);
+    padding-bottom: map.get(spacing.$rem, layout.$default-desktop-spacing);
+  }
+}

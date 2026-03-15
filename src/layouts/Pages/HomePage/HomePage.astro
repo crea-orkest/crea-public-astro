@@ -1,0 +1,56 @@
+---
+import classNames from 'clsx';
+import type { PageCollectionEntry } from '@content/Pages';
+import PageContent from '@components/PageContent/PageContent.astro';
+import Header from '@components/Header/Header.astro';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+
+import styles from './styles.module.scss';
+import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
+import type { ConcertCollectionEntry } from '@content/Concerts';
+
+interface Props {
+  data: PageCollectionEntry;
+  concert: ConcertCollectionEntry;
+}
+
+const {
+  data: { content, title },
+  concert,
+} = Astro.props;
+
+let header = null;
+let pageContent = content;
+if (content[0]?.__typename === 'HeaderRecord') {
+  header = content[0];
+  pageContent = content.slice(1);
+}
+---
+
+{
+  header ? (
+    <Header
+      body={header.body}
+      cover={formatCloudinaryImage(
+        isOfTypeCloudinaryAsset(header.cloudinaryCover)
+          ? header.cloudinaryCover
+          : undefined,
+      )}
+      title={title || ''}
+    />
+  ) : (
+    <Header title={title || ''} />
+  )
+}
+
+<div class={classNames(styles.concerts, 'content-layout')}>
+  <ConcertListItem
+    class="content-layout--small"
+    size="large"
+    data={concert}
+    isLast
+  />
+</div>
+
+<PageContent sectionClassName="content-layout" items={pageContent} />

@@ -1,0 +1,18 @@
+---
+import type { MailchimpFormBlockFragment } from '@lib/datocms/types';
+import styles from './styles.module.scss';
+
+type Props = {
+  record: MailchimpFormBlockFragment;
+};
+
+const { record } = Astro.props;
+---
+
+<iframe
+  title="Mailchimp form"
+  class={styles.root}
+  src={record.formUrl}
+  style={{ height: `${record.height}px` }}
+>
+</iframe>

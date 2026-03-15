@@ -1,0 +1,179 @@
+---
+import classNames from 'clsx';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+import ArrowRight from '@components/icons/arrow-right.astro';
+
+import styles from './styles.module.scss';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+import { type ConcertCollectionEntry } from '@content/Concerts';
+import { dateIsInThePast, formatDate } from '@lib/helpers/date';
+import CloudinaryImage from '@components/CloudinaryImage/CloudinaryImage.astro';
+import Link from '@components/Link/Link.astro';
+
+interface Props {
+  class?: string;
+  data: ConcertCollectionEntry;
+  size?: 'small' | 'large';
+  isLast?: boolean;
+  showLink?: boolean;
+  showImage?: boolean;
+  showProgram?: boolean;
+  title?: string;
+}
+
+const {
+  class: className,
+  data,
+  size = 'small',
+  isLast = false,
+  showLink = true,
+  showImage = true,
+  showProgram = true,
+  title,
+  ...props
+} = Astro.props;
+
+const image = formatCloudinaryImage(
+  isOfTypeCloudinaryAsset(data.cloudinaryPoster)
+    ? data.cloudinaryPoster
+    : undefined,
+);
+
+const link = slugFormatter({ slug: data.meta.path });
+---
+
+<div
+  class={classNames(className, styles.root, {
+    [`${styles.large}`]: size === 'large',
+    [`${styles.isLast}`]: isLast,
+    [`${styles.hasTitle}`]: title,
+    [`${styles.hasImage}`]: image?.url && showImage,
+    [`${styles.oneLocation}`]: data.locations?.length === 1,
+  })}
+  {...props}
+>
+  <h2
+    class={classNames(styles.title, {
+      h3: size === 'small',
+      h2: size === 'large',
+    })}
+  >
+    {typeof title === 'string' && <span class="h2">{title}</span>}
+    {
+      showLink && link && typeof data?.title === 'string' && (
+        <span>
+          <Link href={link}>{data.title}</Link>
+        </span>
+      )
+    }
+  </h2>
+  {
+    (data.locations.length > 0 ||
+      image?.url ||
+      (data.music && Object.entries(data.music).length > 0)) && (
+      <div class={styles.content}>
+        <div>
+          {showProgram &&
+            data.music &&
+            Object.entries(data.music).length > 0 && (
+            <ul class={styles.program}>
+              {Object.entries(data.music).map(([composer, title]) => {
+                return (
+                  <li>
+                    <span class={styles.programTitle}>{composer}</span> —{' '}
+                    {title}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          {data.locations?.length > 0 ? (
+            <ul class={styles.locations}>
+              {data.locations.map((item) => {
+                if (!item?.id) return null;
+                const ticketLink = item.ticketLink;
+                const concertPast =
+                  item?.dateTime && dateIsInThePast(item.dateTime);
+                const startTime = item?.dateTime && formatDate(item.dateTime);
+                const itemTitle = item.location?.title || startTime;
+
+                return (
+                  <li class={styles.location}>
+                    <h3
+                      class={classNames(styles.locationTitle, {
+                        h5: size === 'small',
+                        h3: size === 'large',
+                      })}
+                    >
+                      {itemTitle}
+                    </h3>
+                    {typeof item?.location?.title === 'string' && startTime && (
+                      <p class={classNames(styles.locationSubtitle)}>
+                        {startTime}
+                      </p>
+                    )}
+
+                    {concertPast && item.afterTicketsText && (
+                      <p
+                        class={classNames(styles.locationLinkContainer, {
+                          'text-small': size === 'small' || !ticketLink,
+                        })}
+                      >
+                        {item.afterTicketsText}
+                      </p>
+                    )}
+
+                    {!concertPast && (
+                      <p
+                        class={classNames(styles.locationLinkContainer, {
+                          'text-small': size === 'small' || !ticketLink,
+                        })}
+                      >
+                        <date-text
+                          data-text={item.afterTicketsText}
+                          data-date={item.dateTime}
+                        >
+                          {!ticketLink ? (
+                            item.noTicketsText
+                          ) : (
+                            <Link href={ticketLink} openInNewTab>
+                              <span class={styles.locationLink}>
+                                {item.ticketsText}
+                                <ArrowRight class={styles.locationLinkIcon} />
+                              </span>
+                            </Link>
+                          )}
+                        </date-text>
+                        <script src="./DateText.client.ts" />
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </div>
+
+        {showImage && image?.url && (
+          <div class={classNames(styles.imageContainer)}>
+            <CloudinaryImage image={image} class={classNames(styles.image)} />
+          </div>
+        )}
+      </div>
+    )
+  }
+  {
+    showLink && (
+      <Link
+        class={classNames(styles.eventLink, {
+          'text-small': size === 'small',
+        })}
+        href={link}
+      >
+        Bekijk programma
+        <ArrowRight />
+      </Link>
+    )
+  }
+</div>

@@ -1,0 +1,7 @@
+#import '@content/Identifiable.fragment.graphql';
+
+fragment MailchimpFormBlock on MailchimpFormRecord {
+  ...Identifiable
+  formUrl
+  height
+}

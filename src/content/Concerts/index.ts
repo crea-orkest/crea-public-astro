@@ -12,7 +12,7 @@ type Meta<T extends ConcertCollectionEntryQuery['record']> = {
   recordType: NonNullable<T>['__typename']; // The type of the record in DatoCMS
   path: string; // The path of the page, excluding the locale
 };
-export type PageCollectionEntry = ConcertCollectionEntryQuery['record'] & {
+export type ConcertCollectionEntry = ConcertCollectionEntryQuery['record'] & {
   id: string; // A unique ID for the entry in the content collection, combining the path and locale
   meta: Meta<ConcertCollectionEntryQuery['record']>;
 };
@@ -24,7 +24,7 @@ const name = 'Concerts' as const;
  * Loads a single entry from the collection by its ID and locale.
  *
  * @param path - The path of the entry to load.
- * @returns A promise that resolves to a PageCollectionEntry object or undefined if not found.
+ * @returns A promise that resolves to a ConcertCollectionEntry object or undefined if not found.
  */
 const loadEntry = async (path: string) => {
   const slug = path;
@@ -51,13 +51,13 @@ const loadEntry = async (path: string) => {
       recordType: record.__typename,
       path: `${CONCERTS_SLUG}/${slug}`,
     },
-  } satisfies PageCollectionEntry;
+  } satisfies ConcertCollectionEntry;
 };
 
 /**
  * Loads all entries from the collection, mapping them to their respective locales.
  *
- * @returns A promise that resolves to an array of PageCollectionEntry objects.
+ * @returns A promise that resolves to an array of ConcertCollectionEntry objects.
  **/
 const loadCollection = async () => {
   const items = (
@@ -84,7 +84,7 @@ const loadCollection = async () => {
 
 const collection = defineCollection({
   loader: loadCollection,
-  schema: z.custom<PageCollectionEntry>(),
+  schema: z.custom<ConcertCollectionEntry>(),
 });
 
 export default {

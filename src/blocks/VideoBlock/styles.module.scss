@@ -1,0 +1,5 @@
+@use '../../styles/tokens/radius.scss' as radius;
+
+.borderRadius {
+  border-radius: radius.$md;
+}

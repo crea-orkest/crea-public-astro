@@ -1,0 +1,12 @@
+#import '@content/Identifiable.fragment.graphql';
+#import '@components/Text/Text.fragment.graphql';
+
+fragment TwoColumnField on TwoColumnRecord {
+  ...Identifiable
+  leftContent {
+    ...LeftContent
+  }
+  rightContent {
+    ...RightContent
+  }
+}

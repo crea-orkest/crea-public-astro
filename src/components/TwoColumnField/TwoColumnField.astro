@@ -1,0 +1,31 @@
+---
+import classNames from 'clsx';
+import type { TwoColumnFieldFragment } from '@lib/datocms/types';
+import { isCdaStructuredTextValue } from 'datocms-structured-text-utils';
+import Text from '@components/Text/Text.astro';
+import styles from './styles.module.scss';
+
+interface Props {
+  item: TwoColumnFieldFragment;
+};
+
+const { item } = Astro.props;
+---
+
+<div class={classNames(styles.root)}>
+  {
+    isCdaStructuredTextValue(item.leftContent) && (
+      <div class={styles.content}>
+        <Text data={item.leftContent} />
+      </div>
+    )
+  }
+
+  {
+    isCdaStructuredTextValue(item.rightContent) && (
+      <div class={styles.content}>
+        <Text data={item.rightContent} />
+      </div>
+    )
+  }
+</div>

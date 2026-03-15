@@ -1,0 +1,34 @@
+@use 'sass:map';
+@use '../../styles/tokens/colors.scss' as colors;
+@use '../../styles/tokens/spacing.scss' as spacing;
+@use '../../styles/tokens/breakpoints.scss' as breakpoints;
+@use '../../styles/tokens/z-indices.scss' as z;
+
+.root {
+  font-style: normal;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.details {
+  padding: 0 map.get(spacing.$rem, 24);
+  margin-block-end: map.get(spacing.$rem, 24);
+}
+
+.detailsText {
+  margin: 0;
+}
+
+.staticMap {
+  object-fit: cover;
+  width: 100%;
+  height: 400px;
+}
+
+.staticMapLinkText {
+  display: block;
+  padding: 0 map.get(spacing.$rem, 24);
+  margin-block-end: map.get(spacing.$rem, 8);
+}

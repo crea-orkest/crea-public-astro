@@ -1,0 +1,78 @@
+---
+import type {
+  ActionButtonBlockFragment,
+  ConcertsBlockFragment,
+  DocumentBlockFragment,
+  ImageBlockFragment,
+  MailchimpFormBlockFragment,
+  VideoBlockFragment,
+} from '@lib/datocms/types';
+
+import styles from '../styles.module.scss';
+import ConcertsBlock from '@blocks/ConcertsBlock/ConcertsBlock.astro';
+import DocumentBlock from '@blocks/DocumentBlock/DocumentBlock.astro';
+import ActionButtonBlock from '@blocks/ActionButtonBlock/ActionButtonBlock.astro';
+import MailchimpBlock from '@blocks/MailchimpBlock/MailchimpBlock.astro';
+import VideoBlock from '@blocks/VideoBlock/VideoBlock.astro';
+import ImageBlock from '@blocks/ImageBlock/ImageBlock.astro';
+
+interface Props {
+  block:
+    | ConcertsBlockFragment
+    | ImageBlockFragment
+    | VideoBlockFragment
+    | DocumentBlockFragment
+    | ActionButtonBlockFragment
+    | MailchimpFormBlockFragment;
+}
+
+const { block } = Astro.props;
+---
+
+{
+  block.__typename === 'ConcertListRecord' && (
+    <div class={styles.spacing}>
+      <ConcertsBlock record={block} />
+    </div>
+  )
+}
+
+{
+  block.__typename === 'ImageRecord' && (
+    <div class={styles.spacing}>
+      <ImageBlock record={block} />
+    </div>
+  )
+}
+
+{
+  block.__typename === 'VideoRecord' && (
+    <div class={styles.spacing}>
+      <VideoBlock record={block} />
+    </div>
+  )
+}
+
+{
+  block.__typename === 'DocumentRecord' && (
+    <div class={styles.spacing}>
+      <DocumentBlock record={block} />
+    </div>
+  )
+}
+
+{
+  block.__typename === 'CallToActionRecord' && (
+    <div class={styles.spacing}>
+      <ActionButtonBlock record={block} />
+    </div>
+  )
+}
+
+{
+  block.__typename === 'MailchimpFormRecord' && (
+    <div class={styles.spacingLarge}>
+      <MailchimpBlock record={block} />
+    </div>
+  )
+}

@@ -1,11 +1,13 @@
 ---
 import Layout from '@layouts/Default.astro';
-import { getEntry } from '@lib/content';
+import HomePage from '@layouts/Pages/HomePage/HomePage.astro';
+import { getCollection, getEntry } from '@lib/content';
 export const HOMEPAGE_SLUG = 'homepage';
 
 const entry = (await getEntry('Pages', HOMEPAGE_SLUG))!;
+const concerts = await getCollection('Concerts');
 ---
 
 <Layout>
-  <h1>{entry.data.title}</h1>
+  <HomePage data={entry.data} concert={concerts[0].data} />
 </Layout>
