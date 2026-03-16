@@ -1,6 +1,7 @@
 ---
 import Link from '@components/Link/Link.astro';
 import styles from './styles.module.scss';
+import { PUBLIC_GOOGLE_MAPS_STATIC_API_KEY } from 'astro:env/client';
 
 interface Props {
   lat: number;
@@ -10,7 +11,7 @@ interface Props {
 const { lat, lng, title } = Astro.props;
 
 const linkText = 'Open in Google Maps';
-const staticMapKey = import.meta.env.GOOGLE_MAPS_STATIC_API_KEY;
+const staticMapKey = PUBLIC_GOOGLE_MAPS_STATIC_API_KEY;
 ---
 
 <Link
@@ -28,6 +29,7 @@ const staticMapKey = import.meta.env.GOOGLE_MAPS_STATIC_API_KEY;
           alt={title}
           width={800}
           height={800}
+          loading="lazy"
         />
       </>
     ) : (
