@@ -23,6 +23,6 @@ User-agent: *
 Allow: /
 Disallow: /style-guide
 
-Sitemap: ${siteUrl}/sitemap-index.xml
+Sitemap: ${siteUrl}/sitemap.xml
 
 `.trim();
