@@ -1,14 +1,27 @@
 ---
 import Navigation from './Navigation/Navigation.astro';
 import Footer from './Footer/Footer.astro';
+import type { Tag } from '@lib/datocms/types';
+import { getEntry } from '@lib/content';
+import PerfHead from './PerfHead/PerfHead.astro';
+import SeoHead from './SeoHead/SeoHead.astro';
 import '@styles/global.scss';
+
+interface Props {
+  seoMetaTags: Tag[];
+}
+
+const { seoMetaTags = [] } = Astro.props;
+const seo = await getEntry('SiteInfo', 'seo');
+const faviconMetaTags = seo?.data.faviconMetaTags || [];
 ---
 
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CREA Orkest</title>
+    <PerfHead />
+    <SeoHead tags={[...faviconMetaTags, ...seoMetaTags]} />
   </head>
   <body>
     <Navigation />
