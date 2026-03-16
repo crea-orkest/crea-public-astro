@@ -1,18 +1,37 @@
 ---
+import { getImageUrl } from '@lib/services/cloudinary/formatCloudinaryImage';
 import type { Image } from '@lib/services/cloudinary/types';
 
 interface Props {
   class?: string;
   image: Image;
+  loading?: 'eager' | 'lazy';
+  sizes?: number[];
 }
 
-const { class: className, image, ...props } = Astro.props;
+const defaultSizes = [1920, 1280, 960, 640, 320];
+
+const {
+  class: className,
+  image,
+  loading = 'lazy',
+  sizes = defaultSizes,
+  ...props
+} = Astro.props;
+
+function getImageSrcSet(image: Image) {
+  return sizes
+    .map((width) => `${getImageUrl(image.url, { width })} ${width}w`)
+    .join(', ');
+}
 ---
 
 <img
   class={className}
+  loading={loading}
   alt={image.alt || ''}
   src={image.url}
+  srcset={getImageSrcSet(image)}
   width={image.width || 100}
   height={image.height || 100}
   {...props}
