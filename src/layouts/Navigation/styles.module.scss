@@ -34,9 +34,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: map.get(spacing.$rem, 48);
+    gap: map.get(spacing.$rem, 32);
     flex-shrink: 0;
     margin-right: auto;
+  }
+
+  @media screen and (min-width: breakpoints.$lg) {
+    gap: map.get(spacing.$rem, 48);
   }
 }
 
