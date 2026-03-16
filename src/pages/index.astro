@@ -4,10 +4,10 @@ import HomePage from '@layouts/Pages/HomePage/HomePage.astro';
 import { getCollection, getEntry } from '@lib/content';
 export const HOMEPAGE_SLUG = 'homepage';
 
-const entry = (await getEntry('Pages', HOMEPAGE_SLUG))!;
+const { data } = (await getEntry('Pages', HOMEPAGE_SLUG))!;
 const concerts = await getCollection('Concerts');
 ---
 
-<Layout>
-  <HomePage data={entry.data} concert={concerts[0].data} />
+<Layout seoMetaTags={data._seoMetaTags}>
+  <HomePage data={data} concert={concerts[0].data} />
 </Layout>

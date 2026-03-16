@@ -27,7 +27,6 @@ export default defineConfig([
       sourceType: 'module',
     },
     rules: {
-      indent: ['warn', 2],
       quotes: ['warn', 'single'],
       semi: ['warn', 'always'],
       'object-curly-spacing': ['warn', 'always'],

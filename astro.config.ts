@@ -1,6 +1,12 @@
 import { defineConfig, envField } from 'astro/config';
 import graphql from '@rollup/plugin-graphql';
 import type { PluginOption } from 'vite';
+import serviceWorker from './config/service-worker-integration.ts';
+
+const localhostPort = 4323;
+export const siteUrl = process.env.CF_PAGES
+  ? process.env.CF_PAGES_URL
+  : `http://localhost:${localhostPort}`;
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +24,10 @@ export default defineConfig({
       }),
     },
   },
+  integrations: [serviceWorker()],
   output: 'static',
-  server: { port: 4323 },
+  server: { port: localhostPort },
+  site: siteUrl,
   vite: {
     plugins: [graphql() as PluginOption],
   },

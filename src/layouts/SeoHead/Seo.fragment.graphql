@@ -1,0 +1,7 @@
+fragment Seo on RecordInterface {
+  _seoMetaTags {
+    attributes
+    content
+    tag
+  }
+}

@@ -1,11 +1,14 @@
 #import '@content/Pages/Route.fragment.graphql'
 #import '@content/Identifiable.fragment.graphql';
 #import '@components/PageContent/PageModelContentField.fragment.graphql';
+#import '@layouts/SeoHead/Seo.fragment.graphql';
 
 query PageCollectionEntry($slug: String!) {
   record: page(filter: { slug: { eq: $slug } }) {
     ...Identifiable
     ...PageRoute
+    ...Seo
+    indexPage
     content {
       ...PageRecordContent
     }
