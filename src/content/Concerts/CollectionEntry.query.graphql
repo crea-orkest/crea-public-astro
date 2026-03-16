@@ -2,17 +2,14 @@
 #import '@content/Identifiable.fragment.graphql';
 #import '@components/PageContent/ConcertModelContentField.fragment.graphql';
 #import '@components/ConcertListItem/ConcertListItem.fragment.graphql';
+#import '@layouts/SeoHead/Seo.fragment.graphql';
 
 query ConcertCollectionEntry($slug: String!) {
   record: concert(filter: { slug: { eq: $slug } }) {
     ...Identifiable
     ...ConcertRoute
     ...ConcertListItem
-    _seoMetaTags {
-      attributes
-      content
-      tag
-    }
+    ...Seo
     content {
       ...ConcertRecordContent
     }
