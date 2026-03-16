@@ -1,5 +1,7 @@
 import type { Scalars } from '@lib/datocms/types';
 
+export const cloudinaryAssetsOrigin = 'https://res.cloudinary.com/';
+
 interface CloudinaryUser {
   type?: 'string' | null;
   id?: 'string' | null;
@@ -33,8 +35,8 @@ export interface CloudinaryAsset {
 export interface Image {
   id: string;
   alt: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   url: string;
 }
 

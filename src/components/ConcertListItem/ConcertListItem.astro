@@ -157,7 +157,11 @@ const link = slugFormatter({ slug: data.meta.path });
 
         {showImage && image?.url && (
           <div class={classNames(styles.imageContainer)}>
-            <CloudinaryImage image={image} class={classNames(styles.image)} />
+            <CloudinaryImage
+              image={image}
+              class={classNames(styles.image)}
+              sizes={[640, 320]}
+            />
           </div>
         )}
       </div>

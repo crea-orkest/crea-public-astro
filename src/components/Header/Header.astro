@@ -48,7 +48,11 @@ const { class: className, tag = 'header', title, body, cover } = Astro.props;
   {
     cover?.url && (
       <div class={classNames(styles.headerImageWrapper)}>
-        <CloudinaryImage class={classNames(styles.headerImage)} image={cover} />
+        <CloudinaryImage
+          class={classNames(styles.headerImage)}
+          image={cover}
+          loading={tag === 'header' ? 'eager' : 'lazy'}
+        />
         <div class={classNames(styles.background)} />
       </div>
     )

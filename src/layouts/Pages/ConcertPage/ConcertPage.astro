@@ -69,7 +69,7 @@ const image = formatCloudinaryImage(
         {
           image?.url && (
             <div class={classNames(styles.imageContainer)}>
-              <CloudinaryImage class={classNames(styles.image)} image={image} />
+              <CloudinaryImage class={classNames(styles.image)} image={image} sizes={[640, 320]} />
             </div>
           )
         }
