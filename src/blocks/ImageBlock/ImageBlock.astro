@@ -18,4 +18,8 @@ const asset = formatCloudinaryImage(
 );
 ---
 
-{asset && <CloudinaryImage class={styles.image} image={asset} />}
+{
+  asset && (
+    <CloudinaryImage class={styles.image} image={asset} sizes={[960, 640, 320]} />
+  )
+}
