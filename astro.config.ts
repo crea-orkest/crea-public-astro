@@ -1,6 +1,7 @@
 import { defineConfig, envField } from 'astro/config';
 import graphql from '@rollup/plugin-graphql';
 import type { PluginOption } from 'vite';
+import serviceWorker from './config/service-worker-integration.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,6 +19,9 @@ export default defineConfig({
       }),
     },
   },
+  integrations: [
+    serviceWorker(),
+  ],
   output: 'static',
   server: { port: 4323 },
   vite: {
