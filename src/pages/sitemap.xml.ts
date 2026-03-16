@@ -47,10 +47,10 @@ function getPageLine(page: CollectionEntry<'Pages'>, siteUrl: string) {
     return '';
   }
   const isHomepage = page.data.slug === HOMEPAGE_SLUG;
-  const slug = isHomepage ? '' : page.data.slug;
+  const slugWithSlash = isHomepage ? '/' : `/${page.data.slug}/`;
   const priority = isHomepage ? 1.0 : defaultPriority;
   return `<url>
-    <loc>${siteUrl}/${slug}</loc>
+    <loc>${siteUrl}${slugWithSlash}</loc>
     <lastmod>${page.data._updatedAt}</lastmod>
     <priority>${priority}</priority>
   </url>`;
@@ -58,7 +58,7 @@ function getPageLine(page: CollectionEntry<'Pages'>, siteUrl: string) {
 
 function getConcertLine(concert: CollectionEntry<'Concerts'>, siteUrl: string) {
   return `<url>
-    <loc>${siteUrl}/${concert.data.meta.path}</loc>
+    <loc>${siteUrl}/${concert.data.meta.path}/</loc>
     <lastmod>${concert.data._updatedAt}</lastmod>
     <priority>${defaultPriority}</priority>
   </url>`;
