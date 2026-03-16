@@ -8,6 +8,11 @@ query ConcertCollectionEntry($slug: String!) {
     ...Identifiable
     ...ConcertRoute
     ...ConcertListItem
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     content {
       ...ConcertRecordContent
     }

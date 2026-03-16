@@ -6,6 +6,12 @@ query PageCollectionEntry($slug: String!) {
   record: page(filter: { slug: { eq: $slug } }) {
     ...Identifiable
     ...PageRoute
+    indexPage
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     content {
       ...PageRecordContent
     }

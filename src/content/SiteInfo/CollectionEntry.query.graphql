@@ -10,6 +10,10 @@ query SiteInfoCollectionEntry {
   }
   seo: _site {
     __typename
+    faviconMetaTags(variants: [icon, appleTouchIcon, msApplication]) {
+      tag
+      attributes
+    }
     globalSeo {
       facebookPageUrl
       siteName

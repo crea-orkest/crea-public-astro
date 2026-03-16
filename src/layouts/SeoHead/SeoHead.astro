@@ -1,0 +1,23 @@
+---
+import type { HTMLTag } from 'astro/types';
+import type { Tag } from '@lib/datocms/types';
+import DynamicTag from '@components/DynamicTag.astro';
+
+interface Props {
+  tags: Tag[];
+}
+
+const { tags } = Astro.props;
+
+const metaTags = tags.filter((tag) => tag.tag !== 'title');
+const titleTag = tags.find((tag) => tag.tag === 'title');
+---
+
+{titleTag && <title>{titleTag.content}</title>}
+{
+  metaTags.map(({ tag, attributes }) => (
+    <DynamicTag as={tag as HTMLTag} {...attributes} />
+  ))
+}
+
+<link rel="sitemap" href="/sitemap-index.xml" />
