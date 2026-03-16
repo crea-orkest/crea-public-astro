@@ -4,14 +4,13 @@ import Layout from '@layouts/Default.astro';
 import ConcertOverviewPage from '@layouts/Pages/ConcertOverviewPage/ConcertOverviewPage.astro';
 import { getCollection, getEntry } from '@lib/content';
 
-const entry = (await getEntry('Pages', CONCERTS_SLUG))!;
-
+const { data } = (await getEntry('Pages', CONCERTS_SLUG))!;
 const concerts = await getCollection('Concerts');
 ---
 
-<Layout>
+<Layout seoMetaTags={data._seoMetaTags}>
   <ConcertOverviewPage
-    data={entry.data}
+    data={data}
     concerts={concerts.map((concert) => concert.data)}
   />
 </Layout>

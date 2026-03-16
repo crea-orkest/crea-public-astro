@@ -2,6 +2,12 @@
 import Layout from '@layouts/Default.astro';
 import ConcertPage from '@layouts/Pages/ConcertPage/ConcertPage.astro';
 import { getCollection, getEntry } from '@lib/content';
+import { datocmsAssetsOrigin } from '@lib/datocms';
+import {
+  formatCloudinaryImage,
+  getImageUrl,
+} from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
 
 export async function getStaticPaths() {
   const pages = await getCollection('Concerts');
@@ -15,8 +21,60 @@ const entry = await getEntry('Concerts', path);
 if (!entry) {
   return Astro.rewrite('/404/');
 }
+
+const maxPosterWidth = 1200;
+
+const poster = isOfTypeCloudinaryAsset(entry.data.cloudinaryPoster)
+  ? formatCloudinaryImage(entry.data.cloudinaryPoster)
+  : null;
+
+const posterUrl = poster
+  ? getImageUrl(poster?.url, {
+      width: maxPosterWidth,
+      extra: 'c_fit',
+    })
+  : null;
+
+let seoMetaTags = entry.data._seoMetaTags || [];
+if (poster && posterUrl) {
+  seoMetaTags =
+    entry.data._seoMetaTags?.map((tag) => {
+      switch (tag.attributes?.property) {
+        case 'og:image:height': {
+          return {
+            ...tag,
+            attributes: {
+              ...tag.attributes,
+              content: `${Math.round(maxPosterWidth * (poster.height / poster.width))}`,
+            },
+          };
+        }
+        case 'og:image:width': {
+          return {
+            ...tag,
+            attributes: {
+              ...tag.attributes,
+              content: `${maxPosterWidth}`,
+            },
+          };
+        }
+        default: {
+          if (tag.attributes?.content.includes(datocmsAssetsOrigin)) {
+            return {
+              ...tag,
+              attributes: {
+                ...tag.attributes,
+                content: posterUrl,
+              },
+            };
+          }
+          return tag;
+        }
+      }
+    }) || [];
+}
 ---
 
-<Layout>
+<Layout seoMetaTags={seoMetaTags}>
   <ConcertPage data={entry.data} />
 </Layout>

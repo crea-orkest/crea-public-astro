@@ -22,8 +22,23 @@ const entry = await getEntry('Pages', path);
 if (!entry) {
   return Astro.rewrite('/404/');
 }
+
+const indexPage = !entry.data.indexPage
+  ? {
+    tag: 'meta',
+    attributes: {
+      name: 'robots',
+      content: 'noindex,nofollow',
+    },
+  }
+  : null;
 ---
 
-<Layout>
+<Layout
+  seoMetaTags={[
+    ...(entry.data._seoMetaTags || []),
+    ...(indexPage ? [indexPage] : []),
+  ]}
+>
   <ContentPage data={entry.data} />
 </Layout>
