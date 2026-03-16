@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.1.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.0.0...v1.1.0) (2026-03-16)
+
+
+### Features
+
+* add sitemap with correct data ([4a63048](https://github.com/crea-orkest/crea-public-astro/commit/4a630488a81e3ae003c293ae3329ca8f947a5ae7))
+* **astro.config:** make sure site url is set ([8d035ec](https://github.com/crea-orkest/crea-public-astro/commit/8d035ece23c606e020931a1564979f40d941f20b))
+* **cloudinary:** add image optimisations ([6d21589](https://github.com/crea-orkest/crea-public-astro/commit/6d215897ffe46a494d185d99d1f12cbbb510524f))
+* **CloudinaryImage:** add src set and setting optimised image ([d587bf0](https://github.com/crea-orkest/crea-public-astro/commit/d587bf0955771ac570adc56395afc5779aa265e4))
+* **Default.astro:** add Perf and Seo Head ([3b95160](https://github.com/crea-orkest/crea-public-astro/commit/3b95160a7b1bf51487571c23e28da50fb55e98d0))
+* **Footer:** add loading lazy to footer items ([df148e9](https://github.com/crea-orkest/crea-public-astro/commit/df148e9e21d252841df31b7336fb0fcec1394819))
+* implement new image sizes ([ce19a74](https://github.com/crea-orkest/crea-public-astro/commit/ce19a743721250d0b448437f8181d3bc0aa036ee))
+* **pages:** implement seo in pages ([bc6ceca](https://github.com/crea-orkest/crea-public-astro/commit/bc6cecae7ac2df19de6701c8ff5669598a9300d3))
+* **PerfHead:** add performance head with fonts ([dafd932](https://github.com/crea-orkest/crea-public-astro/commit/dafd93208d596c133c856221f0d24346c1d1c811))
+* **robots.txt:** generate robots.txt ([878ef0b](https://github.com/crea-orkest/crea-public-astro/commit/878ef0bf359b8d8955c77a13c8394e8427af12c5))
+* **SeoHead:** add seo with correct tags ([177c254](https://github.com/crea-orkest/crea-public-astro/commit/177c254d05125c26b11a705a7aefe5655c058a64))
+* **service-worker:** add service-worker integration ([f3c96ce](https://github.com/crea-orkest/crea-public-astro/commit/f3c96ce9ffa4d120d1396b3ef846cf64e1775457))
+
+
+### Bug Fixes
+
+* **content:** use Seo fragment ([f807c02](https://github.com/crea-orkest/crea-public-astro/commit/f807c028f81be05aa6374b2310fc7fb026ef3e20))
+* **eslint:** make sure it doesn't warn for indents ([f2e21e8](https://github.com/crea-orkest/crea-public-astro/commit/f2e21e8780184a35891550ca5c3e3e140e7241e7))
+* **Map:** use correct env key ([f7d5cdd](https://github.com/crea-orkest/crea-public-astro/commit/f7d5cdd56b56153e007c55f46a63e41b595966a0))
+* **Navigation:** use correct gap ([fcb3a06](https://github.com/crea-orkest/crea-public-astro/commit/fcb3a062eee4ab98b595470ffc3bb7d6b0a07d2b))
+* **sitemap.xml.ts:** add trailing slash ([b11f50d](https://github.com/crea-orkest/crea-public-astro/commit/b11f50d3bff7ca72d19ec7c84b4482a0dc116fb2))
+
 ## 1.0.0 (2026-03-15)
 
 
