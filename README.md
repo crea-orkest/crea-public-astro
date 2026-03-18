@@ -1,6 +1,6 @@
 # CREA Orkest public Astro site
 
-The CREA Orkest Astro front-end.
+The CREA Orkest Astro front-end. Build with Astro, content from DatoCMS and images from Cloudinary.
 
 ## Production
 

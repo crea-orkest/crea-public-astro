@@ -20,7 +20,7 @@ export const GET: APIRoute = async (context) => {
     }),
     {
       headers: {
-        'content-type': 'text/xml',
+        'content-type': 'application/xml',
       },
     },
   );
