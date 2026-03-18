@@ -1,3 +1,7 @@
+import {
+  cloudinaryImagesPath,
+  cloudinaryOrigin,
+} from '@middleware/proxy-cloudinary';
 import type { CloudinaryAsset } from './types';
 
 interface Document {
@@ -16,7 +20,9 @@ export const formatCloudinaryDocument = (
   if (document.format !== 'pdf') return;
   return {
     id: `v${document.version}/${document.id}`,
-    url: document.secure_url,
+    url: document.secure_url
+      .replace('http://', 'https://')
+      .replace(cloudinaryOrigin, cloudinaryImagesPath),
     bytes: document.bytes,
     alt: document.alt?.['nl-NL'] ?? '',
   };

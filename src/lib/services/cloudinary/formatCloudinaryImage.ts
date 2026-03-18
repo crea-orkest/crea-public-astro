@@ -1,4 +1,8 @@
-import type { CloudinaryAsset, Image } from './types';
+import {
+  cloudinaryImagesPath,
+  cloudinaryOrigin,
+} from '@middleware/proxy-cloudinary';
+import { type CloudinaryAsset, type Image } from './types';
 
 export const defaultOptimisations =
   '/f_auto,q_80,fl_strip_profile,fl_progressive';
@@ -14,7 +18,9 @@ export const formatCloudinaryImage = (
     alt: asset.alt?.['nl-NL'] ?? '',
     width: asset.width,
     height: asset.height,
-    url: newUrl.replace('http://', 'https://'),
+    url: newUrl
+      .replace('http://', 'https://')
+      .replace(cloudinaryOrigin, cloudinaryImagesPath),
   };
 };
 
