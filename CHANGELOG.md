@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.1.0...v1.2.0) (2026-03-18)
+
+
+### Features
+
+* **_headers:** add manifest header ([fa6e916](https://github.com/crea-orkest/crea-public-astro/commit/fa6e916c4f9260ac08370f4a298fdf13d790bb4f))
+* create manifest ([50b9967](https://github.com/crea-orkest/crea-public-astro/commit/50b9967d74f624190809a57ddbe524ae0486d088))
+* **SeoHead:** import webmanifest and sitemap ([bd48944](https://github.com/crea-orkest/crea-public-astro/commit/bd4894457e7f1bd15d9f23ee4d5cbc6756d7865d))
+
+
+### Bug Fixes
+
+* **_headers:** add security headers ([a9e290d](https://github.com/crea-orkest/crea-public-astro/commit/a9e290d5726a6d267799480e82e606b1a9931137))
+* **_headers:** add security headers ([dcf00e3](https://github.com/crea-orkest/crea-public-astro/commit/dcf00e38bc508790ac0938e637af17d427fe5e26))
+* **site.webmanifest:** temporary fix for shorter site name ([228f7d1](https://github.com/crea-orkest/crea-public-astro/commit/228f7d1090bc9cf92d9aa20f71af010480b0cf39))
+
 ## [1.1.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.0.0...v1.1.0) (2026-03-16)
 
 
