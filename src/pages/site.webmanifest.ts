@@ -19,9 +19,10 @@ export const GET: APIRoute = async () => {
 };
 
 function getManifestText(data: SiteInfoCollectionEntryQuery['seo']) {
+  console.log(data);
   const text = {
     name: data.globalSeo?.siteName,
-    short_name: data.globalSeo?.siteName,
+    short_name: data.globalSeo?.siteName?.replace('Het ', ''),
     description: data?.globalSeo?.fallbackSeo?.description,
     display: 'standalone',
     start_url: '/',
