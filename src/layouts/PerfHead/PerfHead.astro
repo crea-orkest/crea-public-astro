@@ -1,9 +1,8 @@
 ---
 import { datocmsAssetsOrigin } from '@lib/datocms';
-import { cloudinaryAssetsOrigin } from '@lib/services/cloudinary/types';
 import { fonts, getFontFaceDeclaration } from '@assets/fonts';
 
-const preConnectOrigins = [datocmsAssetsOrigin, cloudinaryAssetsOrigin];
+const preConnectOrigins = [datocmsAssetsOrigin];
 const woff2urls = fonts.map((font) => font.woff2Url);
 const fontFaceDeclaration = fonts
   .map((font) => getFontFaceDeclaration(font))
