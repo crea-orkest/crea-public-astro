@@ -17,6 +17,11 @@ export default defineConfig({
         access: 'secret',
         default: process.env.DATOCMS_READONLY_API_TOKEN,
       }),
+      CLOUDINARY_ENV: envField.string({
+        context: 'server',
+        access: 'secret',
+        default: process.env.CLOUDINARY_ENV,
+      }),
       PUBLIC_GOOGLE_MAPS_STATIC_API_KEY: envField.string({
         context: 'client',
         access: 'public',
