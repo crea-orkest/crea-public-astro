@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/crea-orkest/crea-public-astro/compare/v1.2.0...v1.2.1) (2026-03-29)
+
+
+### Bug Fixes
+
+* **_headers:** remove duplicate manifext security policy ([5315250](https://github.com/crea-orkest/crea-public-astro/commit/53152503f0222de1f287d9e08443cd068fe08171))
+
 ## [1.2.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.1.0...v1.2.0) (2026-03-18)
 
 

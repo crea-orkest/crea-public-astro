@@ -1,7 +1,7 @@
 {
   "name": "crea-public-astro",
   "type": "module",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "ISC",
   "scripts": {
     "cloudflare:build": "jiti scripts/build.ts",
