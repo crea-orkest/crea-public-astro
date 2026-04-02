@@ -17,10 +17,10 @@ export default defineConfig({
         access: 'secret',
         default: process.env.DATOCMS_READONLY_API_TOKEN,
       }),
-      PUBLIC_GOOGLE_MAPS_STATIC_API_KEY: envField.string({
+      MAPBOX_ACCESS_TOKEN: envField.string({
         context: 'client',
         access: 'public',
-        default: process.env.PUBLIC_GOOGLE_MAPS_STATIC_API_KEY,
+        default: process.env.MAPBOX_ACCESS_TOKEN,
       }),
     },
   },
