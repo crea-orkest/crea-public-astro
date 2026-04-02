@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.3.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.2.1...v1.3.0) (2026-04-02)
+
+
+### Features
+
+* add env for mapbox ([9f9f035](https://github.com/crea-orkest/crea-public-astro/commit/9f9f0357200b0c112f965c2f57f7ea5aeccbc4b4))
+* **Map.astro:** add mapbox static map ([943024e](https://github.com/crea-orkest/crea-public-astro/commit/943024e48641fd9f73462e6efd7f14078291f82a))
+
+
+### Bug Fixes
+
+* **_headers:** make sure images work ([dbac225](https://github.com/crea-orkest/crea-public-astro/commit/dbac22594609bc258092a9251291dc72db1dc53f))
+* **_headers:** make sure styles work ([17f8f1b](https://github.com/crea-orkest/crea-public-astro/commit/17f8f1b9b247ffd70494ae1b4e5db6288d2efebb))
+* **_headers:** remove google and add mapbox headers ([cff3f18](https://github.com/crea-orkest/crea-public-astro/commit/cff3f18788ae7d43baf39eef78613a5d4eb18115))
+* **_headers:** remove google and add mapbox headers ([56b491a](https://github.com/crea-orkest/crea-public-astro/commit/56b491a98796516215264e4ec8280b5b73ae9ce8))
+* remove unused code ([095a20a](https://github.com/crea-orkest/crea-public-astro/commit/095a20ac63819a03e41c4fcc63c042f0768643c5))
+
 ## [1.2.1](https://github.com/crea-orkest/crea-public-astro/compare/v1.2.0...v1.2.1) (2026-03-29)
 
 
