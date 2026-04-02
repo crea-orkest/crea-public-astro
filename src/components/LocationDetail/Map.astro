@@ -1,7 +1,7 @@
 ---
 import Link from '@components/Link/Link.astro';
 import styles from './styles.module.scss';
-import { PUBLIC_GOOGLE_MAPS_STATIC_API_KEY } from 'astro:env/client';
+import { MAPBOX_ACCESS_TOKEN } from 'astro:env/client';
 
 interface Props {
   lat: number;
@@ -11,7 +11,7 @@ interface Props {
 const { lat, lng, title } = Astro.props;
 
 const linkText = 'Open in Google Maps';
-const staticMapKey = PUBLIC_GOOGLE_MAPS_STATIC_API_KEY;
+const staticMapKey = MAPBOX_ACCESS_TOKEN;
 ---
 
 <Link
@@ -25,7 +25,7 @@ const staticMapKey = PUBLIC_GOOGLE_MAPS_STATIC_API_KEY;
         <span class="sr-only">{linkText}</span>
         <img
           class={styles.staticMap}
-          src={`https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x800&key=${staticMapKey}&markers=color:red%7C${lat},${lng}`}
+          src={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-l+ab4e1e(${lng},${lat})/${lng},${lat},14,0/800x800?access_token=${staticMapKey}`}
           alt={title}
           width={800}
           height={800}
