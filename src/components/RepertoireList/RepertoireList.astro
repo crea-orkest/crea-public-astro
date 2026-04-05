@@ -11,7 +11,7 @@ import HighlightedText from '@components/HighlightedText/HighlightedText.astro';
 import styles from './styles.module.scss';
 import SearchField from '@components/SearchField/SearchField.astro';
 
-export interface RepetoireListItem {
+export interface RepertoireListItem {
   concert: ConcertCollectionEntry;
   composer: string;
   title: string;
@@ -19,7 +19,7 @@ export interface RepetoireListItem {
 
 interface Props {
   class?: string;
-  repertoire: RepetoireListItem[];
+  repertoire: RepertoireListItem[];
 }
 
 const { class: className, repertoire, ...props } = Astro.props;

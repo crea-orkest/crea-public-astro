@@ -1,9 +1,9 @@
 ---
 import { REPERTOIRE_SLUG } from '@content/Concerts';
 import Layout from '@layouts/Default.astro';
-import RepetoireOverviewPage from '@layouts/Pages/RepetoireOverviewPage/RepetoireOverviewPage.astro';
+import RepertoireOverviewPage from '@layouts/Pages/RepertoireOverviewPage/RepertoireOverviewPage.astro';
 import { getCollection, getEntry } from '@lib/content';
-import type { RepetoireListItem } from '@components/RepertoireList/RepetoireList.astro';
+import type { RepertoireListItem } from '@components/RepertoireList/RepertoireList.astro';
 import { searchQueryParam, searchEntries } from '@lib/search';
 
 export const prerender = false;
@@ -15,7 +15,7 @@ const concerts = await getCollection('Concerts');
 
 const concertsToSearch = concerts.map((concert) => concert.data);
 
-const concertsRepertoire: RepetoireListItem[] = concertsToSearch.flatMap(
+const concertsRepertoire: RepertoireListItem[] = concertsToSearch.flatMap(
   (concert) => {
     if (!concert.music) {
       return [];
@@ -54,5 +54,5 @@ const searchResults = searchEntries({
 ---
 
 <Layout seoMetaTags={data._seoMetaTags}>
-  <RepetoireOverviewPage data={data} repertoire={searchResults} />
+  <RepertoireOverviewPage data={data} repertoire={searchResults} />
 </Layout>

@@ -1,0 +1,54 @@
+---
+import classNames from 'clsx';
+import type { PageCollectionEntry } from '@content/Pages';
+import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
+import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
+
+import PageContent from '@components/PageContent/PageContent.astro';
+import Header from '@components/Header/Header.astro';
+import RepertoireList, {
+  type RepertoireListItem,
+} from '@components/RepertoireList/RepertoireList.astro';
+
+import styles from './styles.module.scss';
+
+interface Props {
+  data: PageCollectionEntry;
+  repertoire: RepertoireListItem[];
+}
+
+const {
+  data: { content, title },
+  repertoire,
+} = Astro.props;
+
+let header = null;
+let pageContent = content;
+if (content[0]?.__typename === 'HeaderRecord') {
+  header = content[0];
+  pageContent = content.slice(1);
+}
+---
+
+{
+  header ? (
+    <Header
+      body={header.body}
+      cover={formatCloudinaryImage(
+        isOfTypeCloudinaryAsset(header.cloudinaryCover)
+          ? header.cloudinaryCover
+          : undefined,
+      )}
+      title={title}
+    />
+  ) : (
+    <Header title={title} />
+  )
+}
+
+<RepertoireList
+  class={classNames('content-layout', styles.repertoireList)}
+  repertoire={repertoire}
+/>
+
+<PageContent sectionClassName="content-layout" items={pageContent} />
