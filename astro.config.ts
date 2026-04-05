@@ -1,4 +1,5 @@
 import { defineConfig, envField } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
 import type { PluginOption } from 'vite';
 import serviceWorker from './config/service-worker-integration.ts';
@@ -10,6 +11,11 @@ export const siteUrl = process.env.CF_PAGES
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
   env: {
     schema: {
       DATOCMS_READONLY_API_TOKEN: envField.string({
