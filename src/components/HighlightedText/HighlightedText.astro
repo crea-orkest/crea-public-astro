@@ -1,0 +1,46 @@
+---
+import { searchQueryParam } from '@lib/search';
+
+const query =
+  new URL(Astro.request.url).searchParams.get(searchQueryParam) || '';
+
+const text = await Astro.slots.render('default');
+
+function getHighlightedText(text: string) {
+  if (!query) {
+    return text;
+  }
+
+  const queryTokens = new Set(tokenize(query));
+  if (queryTokens.size === 0) {
+    return text;
+  }
+
+  // Split into words and non-words while preserving delimiters.
+  const parts = text.split(/([\p{L}\p{N}]+)/gu);
+
+  const highlightedParts = parts.map((part) => {
+    if (queryTokens.has(normalizeToken(part))) {
+      return `<strong>${part}</strong>`;
+    }
+    return part;
+  });
+
+  return highlightedParts.join('');
+}
+
+const normalizeToken = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/\p{M}+/gu, '')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '');
+
+const tokenize = (s: string) =>
+  s
+    .split(/[^\p{L}\p{N}]+/u)
+    .map((token) => normalizeToken(token))
+    .filter(Boolean);
+---
+
+<Fragment set:html={getHighlightedText(text)} />
