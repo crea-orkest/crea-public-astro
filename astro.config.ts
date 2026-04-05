@@ -3,7 +3,7 @@ import graphql from '@rollup/plugin-graphql';
 import type { PluginOption } from 'vite';
 import serviceWorker from './config/service-worker-integration.ts';
 
-const localhostPort = 4323;
+const localhostPort = 2732; // CREA in T9
 export const siteUrl = process.env.CF_PAGES
   ? process.env.CF_PAGES_URL
   : `http://localhost:${localhostPort}`;
