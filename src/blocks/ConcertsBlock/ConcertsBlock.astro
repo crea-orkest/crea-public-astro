@@ -2,6 +2,7 @@
 import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
 import { getCollection } from '@lib/content';
 import type { ConcertsBlockFragment } from '@lib/datocms/types';
+import { dateIsInThePast } from '@lib/helpers/date';
 
 interface Props {
   record: ConcertsBlockFragment;
@@ -12,7 +13,13 @@ const { record } = Astro.props;
 const concerts = await getCollection('Concerts');
 let renderedConcerts = concerts;
 if (record.futureConcerts) {
-  renderedConcerts = [concerts[0]];
+  const upcommingConcerts = concerts.filter(({ data }) => {
+    return data.locations.some((location) =>
+      location.dateTime ? !dateIsInThePast(location.dateTime) : false,
+    );
+  });
+  renderedConcerts =
+    upcommingConcerts.length > 0 ? upcommingConcerts.reverse() : [concerts[0]];
 } else if (record.pinnedConcerts?.length) {
   renderedConcerts = concerts.filter((concert) =>
     record.pinnedConcerts?.some(
@@ -30,9 +37,19 @@ if (record.futureConcerts) {
           class="content-layout--small"
           data={item.data}
           size="large"
-          isLast={record.pinnedConcerts.length - 1 === index}
+          isLast={
+            renderedConcerts.length > 1 && renderedConcerts.length - 1 === index
+          }
         />
       );
     })
   }
 </ul>
+
+<style>
+  ul {
+    list-style-type: '';
+    padding-inline: 0;
+    margin: 0;
+  }
+</style>

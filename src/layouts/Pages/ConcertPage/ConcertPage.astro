@@ -9,6 +9,7 @@ import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinary
 import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
 import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
 import LocationDetail from '@components/LocationDetail/LocationDetail.astro';
+import ConcertList from '@components/ConcertList/ConcertList.astro';
 
 interface Props {
   data: ConcertCollectionEntry;
@@ -61,7 +62,8 @@ const image = formatCloudinaryImage(
   </header>
   <div
     class={classNames(styles.container, 'content-layout', {
-      [`${styles.noGrid}`]: !image?.url,
+      [`${styles.noGrid}`]:
+        !image?.url && (!extraInfo || Object.entries(extraInfo).length === 0),
     })}
   >
     <aside class={styles.sidebar}>
@@ -69,7 +71,11 @@ const image = formatCloudinaryImage(
         {
           image?.url && (
             <div class={classNames(styles.imageContainer)}>
-              <CloudinaryImage class={classNames(styles.image)} image={image} sizes={[640, 320]} />
+              <CloudinaryImage
+                class={classNames(styles.image)}
+                image={image}
+                sizes={[640, 320]}
+              />
             </div>
           )
         }
@@ -95,7 +101,7 @@ const image = formatCloudinaryImage(
     <div class={styles.content}>
       {
         locations.length > 0 && (
-          <div class={styles.eventListItem}>
+          <ConcertList class={styles.eventList}>
             <ConcertListItem
               data={data}
               size="large"
@@ -105,7 +111,7 @@ const image = formatCloudinaryImage(
               showImage={false}
               showProgram={false}
             />
-          </div>
+          </ConcertList>
         )
       }
 

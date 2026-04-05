@@ -1,23 +1,22 @@
 ---
-import classNames from 'clsx';
 import type { PageCollectionEntry } from '@content/Pages';
-import PageContent from '@components/PageContent/PageContent.astro';
-import Header from '@components/Header/Header.astro';
+import type { ConcertCollectionEntry } from '@content/Concerts';
 import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
 import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
 
-import styles from './styles.module.scss';
+import PageContent from '@components/PageContent/PageContent.astro';
+import Header from '@components/Header/Header.astro';
 import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
-import type { ConcertCollectionEntry } from '@content/Concerts';
+import ConcertList from '@components/ConcertList/ConcertList.astro';
 
 interface Props {
   data: PageCollectionEntry;
-  concert: ConcertCollectionEntry;
+  concerts: ConcertCollectionEntry[];
 }
 
 const {
   data: { content, title },
-  concert,
+  concerts,
 } = Astro.props;
 
 let header = null;
@@ -44,13 +43,17 @@ if (content[0]?.__typename === 'HeaderRecord') {
   )
 }
 
-<div class={classNames(styles.concerts, 'content-layout')}>
-  <ConcertListItem
-    class="content-layout--small"
-    size="large"
-    data={concert}
-    isLast
-  />
-</div>
+<ConcertList class="content-layout">
+  {
+    concerts.map((concert, index) => (
+      <ConcertListItem
+        class="content-layout--small"
+        size="large"
+        data={concert}
+        isLast={index === concerts.length - 1}
+      />
+    ))
+  }
+</ConcertList>
 
 <PageContent sectionClassName="content-layout" items={pageContent} />
