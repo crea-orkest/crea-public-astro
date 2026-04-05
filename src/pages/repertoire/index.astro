@@ -1,0 +1,58 @@
+---
+import { REPERTOIRE_SLUG } from '@content/Concerts';
+import Layout from '@layouts/Default.astro';
+import RepertoireOverviewPage from '@layouts/Pages/RepertoireOverviewPage/RepertoireOverviewPage.astro';
+import { getCollection, getEntry } from '@lib/content';
+import type { RepertoireListItem } from '@components/RepertoireList/RepertoireList.astro';
+import { searchQueryParam, searchEntries } from '@lib/search';
+
+export const prerender = false;
+const query =
+  new URL(Astro.request.url).searchParams.get(searchQueryParam) || '';
+
+const { data } = (await getEntry('Pages', REPERTOIRE_SLUG))!;
+const concerts = await getCollection('Concerts');
+
+const concertsToSearch = concerts.map((concert) => concert.data);
+
+const concertsRepertoire: RepertoireListItem[] = concertsToSearch.flatMap(
+  (concert) => {
+    if (!concert.music) {
+      return [];
+    }
+    return Object.entries(concert.music).map(([composer, title]) => ({
+      concert,
+      extra: concert.extraInfo
+        ? Object.entries(concert.extraInfo).map(([key, value]) => ({
+            key,
+            value,
+          }))
+        : [],
+      composer,
+      title,
+    }));
+  },
+);
+
+const searchResults = searchEntries({
+  entries: concertsRepertoire,
+  keys: [
+    {
+      name: 'title',
+      weight: 2,
+    },
+    {
+      name: 'composer',
+      weight: 2,
+    },
+    'concert.title',
+    'extra.key',
+    'extra.value',
+  ],
+  query,
+});
+---
+
+<Layout seoMetaTags={data._seoMetaTags}>
+  <RepertoireOverviewPage data={data} repertoire={searchResults} />
+</Layout>

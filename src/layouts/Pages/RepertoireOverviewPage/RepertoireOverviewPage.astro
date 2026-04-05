@@ -1,22 +1,25 @@
 ---
+import classNames from 'clsx';
 import type { PageCollectionEntry } from '@content/Pages';
-import type { ConcertCollectionEntry } from '@content/Concerts';
 import { formatCloudinaryImage } from '@lib/services/cloudinary/formatCloudinaryImage';
 import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
 
 import PageContent from '@components/PageContent/PageContent.astro';
 import Header from '@components/Header/Header.astro';
-import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
-import ConcertList from '@components/ConcertList/ConcertList.astro';
+import RepertoireList, {
+  type RepertoireListItem,
+} from '@components/RepertoireList/RepertoireList.astro';
+
+import styles from './styles.module.scss';
 
 interface Props {
   data: PageCollectionEntry;
-  concerts: ConcertCollectionEntry[];
+  repertoire: RepertoireListItem[];
 }
 
 const {
   data: { content, title },
-  concerts,
+  repertoire,
 } = Astro.props;
 
 let header = null;
@@ -36,24 +39,16 @@ if (content[0]?.__typename === 'HeaderRecord') {
           ? header.cloudinaryCover
           : undefined,
       )}
-      title={title || ''}
+      title={title}
     />
   ) : (
-    <Header title={title || ''} />
+    <Header title={title} />
   )
 }
 
-<ConcertList class="content-layout">
-  {
-    concerts.map((concert, index) => (
-      <ConcertListItem
-        class="content-layout--small"
-        size="large"
-        data={concert}
-        isLast={index === concerts.length - 1}
-      />
-    ))
-  }
-</ConcertList>
+<RepertoireList
+  class={classNames('content-layout', styles.repertoireList)}
+  repertoire={repertoire}
+/>
 
 <PageContent sectionClassName="content-layout" items={pageContent} />

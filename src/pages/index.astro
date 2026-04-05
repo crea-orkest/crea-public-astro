@@ -2,12 +2,26 @@
 import Layout from '@layouts/Default.astro';
 import HomePage from '@layouts/Pages/HomePage/HomePage.astro';
 import { getCollection, getEntry } from '@lib/content';
+import { dateIsInThePast } from '@lib/helpers/date';
 export const HOMEPAGE_SLUG = 'homepage';
 
 const { data } = (await getEntry('Pages', HOMEPAGE_SLUG))!;
 const concerts = await getCollection('Concerts');
+
+const upcommingConcerts = concerts
+  .filter(({ data }) => {
+    return data.locations.some((location) =>
+      location.dateTime ? !dateIsInThePast(location.dateTime) : false,
+    );
+  })
+  .map(({ data }) => data);
 ---
 
 <Layout seoMetaTags={data._seoMetaTags}>
-  <HomePage data={data} concert={concerts[0].data} />
+  <HomePage
+    data={data}
+    concerts={upcommingConcerts.length > 0
+      ? upcommingConcerts.reverse()
+      : [concerts[0].data]}
+  />
 </Layout>

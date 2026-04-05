@@ -43,13 +43,14 @@ const image = formatCloudinaryImage(
 const link = slugFormatter({ slug: data.meta.path });
 ---
 
-<div
+<li
   class={classNames(className, styles.root, {
     [`${styles.large}`]: size === 'large',
     [`${styles.isLast}`]: isLast,
     [`${styles.hasTitle}`]: title,
     [`${styles.hasImage}`]: image?.url && showImage,
     [`${styles.oneLocation}`]: data.locations?.length === 1,
+    [`${styles.noLocations}`]: !data.locations || data.locations.length === 0,
   })}
   {...props}
 >
@@ -77,17 +78,17 @@ const link = slugFormatter({ slug: data.meta.path });
           {showProgram &&
             data.music &&
             Object.entries(data.music).length > 0 && (
-            <ul class={styles.program}>
-              {Object.entries(data.music).map(([composer, title]) => {
-                return (
-                  <li>
-                    <span class={styles.programTitle}>{composer}</span> —{' '}
-                    {title}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+              <ul class={styles.program}>
+                {Object.entries(data.music).map(([composer, title]) => {
+                  return (
+                    <li>
+                      <span class={styles.programTitle}>{composer}</span> —{' '}
+                      {title}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           {data.locations?.length > 0 ? (
             <ul class={styles.locations}>
               {data.locations.map((item) => {
@@ -180,4 +181,4 @@ const link = slugFormatter({ slug: data.meta.path });
       </Link>
     )
   }
-</div>
+</li>

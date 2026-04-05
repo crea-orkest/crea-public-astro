@@ -18,6 +18,7 @@ export type ConcertCollectionEntry = ConcertCollectionEntryQuery['record'] & {
 };
 
 export const CONCERTS_SLUG = 'concerten';
+export const REPERTOIRE_SLUG = 'repertoire';
 const name = 'Concerts' as const;
 
 /**

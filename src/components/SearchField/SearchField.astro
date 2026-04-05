@@ -1,0 +1,47 @@
+---
+import { searchQueryParam } from '@lib/search';
+
+import styles from './styles.module.scss';
+import Button from '@components/Button/Button.astro';
+import Cross from '@components/icons/cross.astro';
+import Link from '@components/Link/Link.astro';
+
+interface Props {
+  action: string;
+}
+
+const { action } = Astro.props;
+
+const query =
+  new URL(Astro.request.url).searchParams.get(searchQueryParam) || '';
+---
+
+<form class={styles.root} method="GET" action={`/${action}`}>
+  <label class={styles.label} for="search">Zoek repertoire:</label>
+  <div class={styles.inputGroup}>
+    <input
+      class={styles.input}
+      id="search"
+      type="search"
+      name="q"
+      value={query}
+      autocomplete="off"
+    />
+    <Button class={styles.button} type="submit">Zoek</Button>
+  </div>
+</form>
+
+{
+  query && (
+    <p class={styles.text}>
+      Zoekresultaten voor:
+      <span class={styles.queryWrapper}>
+        <span class={styles.query}>{query}</span>{' '}
+        <Link class={styles.link} href={`/${action}`}>
+          <span class="sr-only">Verwijder zoekopdracht</span>
+          <Cross class={styles.cross} />
+        </Link>
+      </span>
+    </p>
+  )
+}
