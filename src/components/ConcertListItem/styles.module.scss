@@ -142,7 +142,7 @@ $padding-large-left: map.get(spacing.$rem, 40);
 
 .content .locationLinkContainer {
   margin-block: 0;
-  white-space: nowrap;
+  white-space: initial;
 }
 
 .locationLink {
