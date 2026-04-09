@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.0...v1.4.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* **ConcertListItem:** set white space to initial ([7411655](https://github.com/crea-orkest/crea-public-astro/commit/7411655ac29c406f807135b02ad448ed1d84744c))
+* **ConcertPage:** fix padding for concert list ([8dfe3ec](https://github.com/crea-orkest/crea-public-astro/commit/8dfe3ec0ae84fe849d3dce63ad4fa52c47fbb3e4))
+
 ## [1.4.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.3.0...v1.4.0) (2026-04-09)
 
 
