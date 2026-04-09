@@ -54,6 +54,7 @@ $padding-large-left: map.get(spacing.$rem, 40);
 }
 
 .content {
+  position: relative;
   display: flex;
   gap: map.get(spacing.$rem, 16);
   flex-direction: column;
@@ -69,6 +70,10 @@ $padding-large-left: map.get(spacing.$rem, 40);
     margin: 0;
 
     margin-bottom: map.get(spacing.$rem, 24);
+
+    li {
+      margin: 0;
+    }
 
     @media screen and (min-width: breakpoints.$sm) {
       margin-bottom: map.get(spacing.$rem, 48);
@@ -133,6 +138,11 @@ $padding-large-left: map.get(spacing.$rem, 40);
 .locationLinkContainer {
   font-weight: bold;
   order: 3;
+}
+
+.content .locationLinkContainer {
+  margin-block: 0;
+  white-space: nowrap;
 }
 
 .locationLink {
@@ -262,28 +272,63 @@ $padding-large-left: map.get(spacing.$rem, 40);
   }
 }
 
+// Title dots
+.noLocations .title {
+  position: relative;
+}
+
+.noLocations .title::before {
+  content: '';
+  position: absolute;
+  bottom: calc(($dot-offset * 2) * -1);
+  left: calc(($dot-size * 2) * -1);
+  width: $dot-size;
+  height: $dot-size;
+  border-radius: 50%;
+  background-color: colors.$secondary;
+}
+
+.noLocations.large .title::before {
+  bottom: calc(($dot-large-mobile-offset) * -1);
+  left: calc(($dot-large-size * 2.5) * -1);
+  width: $dot-large-size;
+  height: $dot-large-size;
+
+  @media screen and (min-width: breakpoints.$sm) {
+    bottom: calc(($dot-large-desktop-offset) * -1);
+  }
+}
+
 // Root line
-.root::before {
+.root:not(.isLast)::before,
+.isLast .title::after,
+.isLast .content::after {
   @extend %line;
 }
 
-.large::before {
+.large:not(.isLast)::before,
+.large.isLast .title::after,
+.large.isLast .content::after {
   border-left: $border-large-size solid colors.$secondary;
   transform: translateX(calc($border-large-size / 2 * -1));
 }
 
-.isLast.oneLocation::before,
-.isLast.hasTitle::before,
-.isLast:not(.hasImage)::before {
-  height: 120%;
+.isLast .title::after,
+.isLast .content::after {
+  left: calc(($padding-left * -1));
 }
 
-.isLast::before,
-.isLast.hasImage::before {
-  height: 100%;
+.large.isLast .title::after,
+.large.isLast .content::after {
+  left: calc(($padding-large-left * -1));
 }
 
-// locationTitle line
+.isLast .title {
+  position: relative;
+}
+
+// content and locationTitle inverted line
+.isLast.noLocations .content::after,
 .isLast .location:last-child .locationTitle::after {
   @extend %line;
 
@@ -294,12 +339,14 @@ $padding-large-left: map.get(spacing.$rem, 40);
   );
   top: calc($dot-offset + $dot-size);
   left: calc(($padding-left * -1) - ($border-size / 2));
+  z-index: 1;
 
   @media screen and (min-width: breakpoints.$sm) {
     height: calc(100% + map.get(spacing.$rem, layout.$default-desktop-spacing));
   }
 }
 
+.large.isLast.noLocations .content::after,
 .large.isLast .location:last-child .locationTitle::after {
   border-width: $border-large-size * 2;
   height: calc(
@@ -315,6 +362,7 @@ $padding-large-left: map.get(spacing.$rem, 40);
   }
 }
 
+.isLast.noLocations:not(.hasImage) .content::after,
 .isLast:not(.hasImage) .location:last-child .locationTitle::after {
   height: calc(100% + map.get(spacing.$rem, layout.$default-mobile-spacing));
 

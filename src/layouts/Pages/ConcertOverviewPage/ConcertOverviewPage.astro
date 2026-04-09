@@ -8,6 +8,7 @@ import { isOfTypeCloudinaryAsset } from '@lib/services/cloudinary/types';
 import PageContent from '@components/PageContent/PageContent.astro';
 import Header from '@components/Header/Header.astro';
 import ConcertListItem from '@components/ConcertListItem/ConcertListItem.astro';
+import ConcertList from '@components/ConcertList/ConcertList.astro';
 
 import styles from './styles.module.scss';
 
@@ -29,36 +30,32 @@ if (content[0]?.__typename === 'HeaderRecord') {
 }
 ---
 
-<>
-  {
-    header ? (
-      <Header
-        body={header.body}
-        cover={formatCloudinaryImage(
-          isOfTypeCloudinaryAsset(header.cloudinaryCover)
-            ? header.cloudinaryCover
-            : undefined,
-        )}
-        title={title}
-      />
-    ) : (
-      <Header title={title} />
-    )
-  }
-  <div class={classNames(styles.concerts, 'content-layout')}>
-    {
-      concerts?.map((concert, index) => {
-        if (!concert?.id) return;
+{
+  header ? (
+    <Header
+      body={header.body}
+      cover={formatCloudinaryImage(
+        isOfTypeCloudinaryAsset(header.cloudinaryCover)
+          ? header.cloudinaryCover
+          : undefined,
+      )}
+      title={title}
+    />
+  ) : (
+    <Header title={title} />
+  )
+}
 
-        return (
-          <ConcertListItem
-            class="content-layout--small"
-            data={concert}
-            isLast={concerts.length - 1 === index}
-          />
-        );
-      })
-    }
-  </div>
-  <PageContent sectionClassName="content-layout" items={pageContent} />
-</>
+<ConcertList class={classNames('content-layout', styles.concertList)}>
+  {
+    concerts.map((concert, index) => (
+      <ConcertListItem
+        class="content-layout--small"
+        data={concert}
+        isLast={concerts.length - 1 === index}
+      />
+    ))
+  }
+</ConcertList>
+
+<PageContent sectionClassName="content-layout" items={pageContent} />

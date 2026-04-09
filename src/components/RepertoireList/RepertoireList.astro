@@ -1,0 +1,103 @@
+---
+import classNames from 'clsx';
+import Link from '@components/Link/Link.astro';
+import {
+  REPERTOIRE_SLUG,
+  type ConcertCollectionEntry,
+} from '@content/Concerts';
+import { slugFormatter } from '@lib/routing/slugFormatter';
+import HighlightedText from '@components/HighlightedText/HighlightedText.astro';
+
+import styles from './styles.module.scss';
+import SearchField from '@components/SearchField/SearchField.astro';
+
+export interface RepertoireListItem {
+  concert: ConcertCollectionEntry;
+  composer: string;
+  title: string;
+}
+
+interface Props {
+  class?: string;
+  repertoire: RepertoireListItem[];
+}
+
+const { class: className, repertoire, ...props } = Astro.props;
+
+const concertsMap: {
+  title: string;
+  path: string;
+  extra: { key: string; value: string }[];
+  music: { title: string; composer: string }[];
+}[] = [];
+
+for (const item of repertoire) {
+  const concert = concertsMap.find((c) => c.title === item.concert.title);
+  if (concert) {
+    concert.music.push({
+      composer: item.composer,
+      title: item.title,
+    });
+  } else {
+    concertsMap.push({
+      title: item.concert.title,
+      path: item.concert.meta.path,
+      extra: item.concert.extraInfo
+        ? Object.entries(item.concert.extraInfo).map(([key, value]) => ({
+            key,
+            value,
+          }))
+        : [],
+      music: [{ composer: item.composer, title: item.title }],
+    });
+  }
+}
+---
+
+<section class={classNames(styles.root, className)} {...props}>
+  <SearchField action={REPERTOIRE_SLUG} />
+  <ul class={styles.list}>
+    {
+      concertsMap.map((concert) => (
+        <li>
+          <h3 class={styles.concertTitle}>
+            <Link
+              class={classNames(styles.link, 'text-normal')}
+              href={slugFormatter({ slug: concert.path })}
+            >
+              {concert.title}
+            </Link>
+          </h3>
+
+          {concert.extra.length > 0 && (
+            <ul class={styles.extraInfo}>
+              {concert.extra.map((item) => (
+                <li class="text-small">
+                  {item.value} ({item.key})
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <ul>
+            {concert.music.map((music) => (
+              <li>
+                <Link
+                  href={`/${REPERTOIRE_SLUG}?q=${encodeURIComponent(music.composer)}`}
+                >
+                  <HighlightedText>{music.composer}</HighlightedText>
+                </Link>{' '}
+                —{' '}
+                <Link
+                  href={`/${REPERTOIRE_SLUG}?q=${encodeURIComponent(`${music.composer} ${music.title}`)}`}
+                >
+                  <HighlightedText>{music.title}</HighlightedText>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</section>

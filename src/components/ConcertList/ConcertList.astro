@@ -1,0 +1,14 @@
+---
+import classNames from 'clsx';
+import styles from './styles.module.scss';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<ul class={classNames(styles.root, className)} {...props}>
+  <slot />
+</ul>
