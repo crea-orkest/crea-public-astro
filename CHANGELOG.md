@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.3.0...v1.4.0) (2026-04-09)
+
+
+### Features
+
+* get upcomming concerts and make default styling ([051c4b7](https://github.com/crea-orkest/crea-public-astro/commit/051c4b782227c834392e457ac1e85859fb29f83a))
+* **HightlightedText:** add highlighted text component ([161c191](https://github.com/crea-orkest/crea-public-astro/commit/161c19144856f4170acc530c781219a2e72f1375))
+* **repertoire:** add repertoire page ([aeb2e81](https://github.com/crea-orkest/crea-public-astro/commit/aeb2e81f4bcca2c36d5923a770ed7e99e2fc5f54))
+* **RepertoireOverviewPage:** add overview page layout ([b383e02](https://github.com/crea-orkest/crea-public-astro/commit/b383e0223c876cfed00f262d2da2e0f5532312fe))
+* **RepetoireList:** add list of items from concerts ([d39a62e](https://github.com/crea-orkest/crea-public-astro/commit/d39a62e7d97991c2d8ba513edbb499052c10f91b))
+* **SearchField:** add search field ([6a54717](https://github.com/crea-orkest/crea-public-astro/commit/6a5471745a8647dba17fbac59174814d2d4b2307))
+* **SearchField:** make search field search button nice ([eb9af17](https://github.com/crea-orkest/crea-public-astro/commit/eb9af17e6e1531205b106f4018c9c97678b85d8c))
+
+
+### Bug Fixes
+
+* **SearchField:** optimize styling and autocomplete ([d957d3e](https://github.com/crea-orkest/crea-public-astro/commit/d957d3e95cb917cd99ecb3c2eb3840f9b1fa555b))
+
 ## [1.3.0](https://github.com/crea-orkest/crea-public-astro/compare/v1.2.1...v1.3.0) (2026-04-02)
 
 
