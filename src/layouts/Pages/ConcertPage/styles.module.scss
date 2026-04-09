@@ -181,12 +181,13 @@ $sidebar-translate: 50px;
 ul.eventList {
   list-style-type: '';
   margin-inline: 0;
-  padding-top: map.get(spacing.$rem, layout.$default-mobile-spacing);
-  padding-bottom: 0;
+  padding-inline: 0;
+  padding-block-start: map.get(spacing.$rem, layout.$default-mobile-spacing);
+  padding-block-end: 0;
 
   @media screen and (min-width: breakpoints.$sm) {
-    padding-left: map.get(spacing.$rem, 24);
-    padding-top: map.get(spacing.$rem, layout.$default-desktop-spacing);
+    padding-inline-start: map.get(spacing.$rem, 24);
+    padding-block-start: map.get(spacing.$rem, layout.$default-desktop-spacing);
   }
 }
 
