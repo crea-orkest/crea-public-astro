@@ -17,6 +17,7 @@ export type PageCollectionEntry = PageCollectionEntryQuery['record'] & {
   meta: Meta<PageCollectionEntryQuery['record']>;
 };
 
+export const NOT_FOUND_SLUG = '404';
 const name = 'Pages' as const;
 
 /**
