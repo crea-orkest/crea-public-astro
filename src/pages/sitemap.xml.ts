@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from '@lib/content';
 import type { APIRoute } from 'astro';
 import { HOMEPAGE_SLUG } from './index.astro';
+import { NOT_FOUND_SLUG } from '@content/Pages';
 
 export const prerender = true;
 const defaultPriority = 0.7;
@@ -8,7 +9,7 @@ const defaultPriority = 0.7;
 export const GET: APIRoute = async (context) => {
   const pages = await getCollection(
     'Pages',
-    (page) => page.data.slug !== '404',
+    (page) => page.data.slug !== NOT_FOUND_SLUG,
   );
   const concerts = await getCollection('Concerts');
 
