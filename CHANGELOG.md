@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.2](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.1...v1.4.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* **404:** add 404 page ([fbdd44b](https://github.com/crea-orkest/crea-public-astro/commit/fbdd44b1ab6c30f8e1584b602d5244beaf4974bc))
+* **Pages:** add NOT_FOUND_SLUG ([f0c8e69](https://github.com/crea-orkest/crea-public-astro/commit/f0c8e69cec6b8da63baf59c42106911cc7246aa3))
+
 ## [1.4.1](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.0...v1.4.1) (2026-04-09)
 
 
