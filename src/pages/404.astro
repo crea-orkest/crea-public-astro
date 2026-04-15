@@ -1,0 +1,23 @@
+---
+import Layout from '@layouts/Default.astro';
+import { getEntry } from '@lib/content';
+import { NOT_FOUND_SLUG } from '@content/Pages';
+
+import ContentPage from '@layouts/Pages/ContentPage/ContentPage.astro';
+
+export const prerender = false;
+
+const entry = (await getEntry('Pages', NOT_FOUND_SLUG))!;
+
+const indexPage = {
+  tag: 'meta',
+  attributes: {
+    name: 'robots',
+    content: 'noindex,nofollow',
+  },
+};
+---
+
+<Layout seoMetaTags={[...(entry.data._seoMetaTags || []), indexPage]}>
+  <ContentPage data={entry.data} />
+</Layout>
