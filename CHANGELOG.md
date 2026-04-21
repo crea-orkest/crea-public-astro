@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.3](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.2...v1.4.3) (2026-04-21)
+
+
+### Bug Fixes
+
+* **_headers:** add unsafe inline back ([8310562](https://github.com/crea-orkest/crea-public-astro/commit/8310562e6da3bf863afdc63e2509ad1d6fb60791))
+* **_headers:** fix inline styling ([fa749ed](https://github.com/crea-orkest/crea-public-astro/commit/fa749ede318afb1d209d78105a01bc3aa506392d))
+* **_headers:** fix inline styling ([738b8fd](https://github.com/crea-orkest/crea-public-astro/commit/738b8fd5e4d3552d2759dbfca28a9180d097a56d))
+
 ## [1.4.2](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.1...v1.4.2) (2026-04-15)
 
 
