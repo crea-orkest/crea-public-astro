@@ -13,7 +13,7 @@
   X-XSS-Protection: 1; mode=block
   X-DNS-Prefetch-Control: on
   Permissions-Policy: fullscreen=(self)
-  Content-Security-Policy: default-src 'self'; manifest-src 'self'; script-src 'self'; img-src 'self' data: https://api.mapbox.com https://i.ytimg.com https://img.youtube.com https://i.vimeocdn.com https://res.cloudinary.com https://www.datocms-assets.com; script-src-elem https://static.cloudflareinsights.com 'self' 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'; font-src 'self'; frame-src 'self' https://www.youtube.com https://player.vimeo.com
+  Content-Security-Policy: default-src 'self'; manifest-src 'self'; script-src 'self'; img-src 'self' data: https://api.mapbox.com https://i.ytimg.com https://img.youtube.com https://i.vimeocdn.com https://res.cloudinary.com https://www.datocms-assets.com; script-src-elem https://static.cloudflareinsights.com 'self' 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'self' https://www.youtube.com https://player.vimeo.com
 
 # Static assets are hashed and can therefore be cached forever
 /_astro/*
