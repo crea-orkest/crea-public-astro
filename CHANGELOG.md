@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.4](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.3...v1.4.4) (2026-10-28)
+
+
+### Bug Fixes
+
+* **Footer.astro:** remove logo and link footer ([40a4833](https://github.com/crea-orkest/crea-public-astro/commit/40a4833ce907e0979546279015102f4888271575))
+* **logo-hva.png:** remove unused hva logo ([86b2497](https://github.com/crea-orkest/crea-public-astro/commit/86b249745f9edd1f4b9e17b0c317f34c00de3d32))
+
 ## [1.4.3](https://github.com/crea-orkest/crea-public-astro/compare/v1.4.2...v1.4.3) (2026-04-21)
 
 
